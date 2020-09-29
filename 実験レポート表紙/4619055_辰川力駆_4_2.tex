@@ -58,8 +58,87 @@
 
 \section{目的}
 \begin{itemize}
-    \item [1.]
+    \item [1.]単回帰分析の考え方と手順
+
+          単回帰分析の目的、考え方、手順を理解する
+    \item [2.]単回帰分析における行列表現
+
+          単回帰分析における行列表現(線形回帰モデル、正規方程式、最小二乗推定量など)
+          を理解する
+    \item [3.]実際のデータ解析
+
+          実際のデータに回帰分析を適用することで、解析法を実践的に利用・応用できるようにする
 \end{itemize}
+
+\section{実験方法}
+\subsection{実験1 単回帰分析の考え方と手順}
+6つの市町村の人口と行政職員数の仮想データを表1に示す。
+また、各市町村の人口を$x_i$,職員数を$y_i(i=1,...,n(=6))$と表記する。
+
+\begin{table}[htb]
+    \begin{center}
+        \caption{市町村の人口と行政職員数}
+        \begin{tabular}{|c|c|c|} \hline
+            市町村 & 人口$x$(千人) & 職員数$y$(人) \\ \hline
+            A      & 1             & 10            \\
+            B      & 2             & 20            \\
+            C      & 3             & 20            \\
+            D      & 3             & 40            \\
+            E      & 5             & 40            \\
+            F      & 1             & 5             \\ \hline
+            合計   & 15            & 135           \\\hline
+        \end{tabular}
+    \end{center}
+\end{table}
+
+\begin{itemize}
+    \item [1.]次の統計量を計算する。
+          \begin{eqnarray}
+              \sum_{i=1}^{n} x_i,　\sum_{i=1}^{n} y_i,　\sum_{i=1}^{n} {x_i}^2,　\sum_{i=1}^{n} {y_i}^2,　\sum_{i=1}^{n} x_iy_i \nonumber
+          \end{eqnarray}
+    \item [2.]次式が整理することを証明する。
+          \begin{eqnarray}
+              \sum_{i=1}^{n} (x_i-\bar{x})^2&=&\sum_{i=1}^{n} {x_i}^2-n\bar{x}^2 \\
+              \sum_{i=1}^{n} (y_i-\bar{y})^2&=&\sum_{i=1}^{n} {y_i}^2-n\bar{y}^2 \\
+              \sum_{i=1}^{n} (x_i-\bar{x})(y_i-\bar{y})&=&\sum_{i=1}^{n} {x_iy_i}-n\bar{xy}
+          \end{eqnarray}
+    \item [3.]人口$x$と職員数$y$の基本統計量(データ数、平均、標準偏差、最小値、最大値)を計算する。
+          \begin{eqnarray}
+              人口xの平均&=&\bar{x}=\frac{\sum_{i=1}^{n} x_i}{n} \\
+              人口xの標準偏差&=&\sqrt{\frac{\sum_{i=1}^{n} (x_i-\bar{x})^2}{n-1}}=\sqrt{\frac{\sum_{i=1}^{n} {x_i}^2-n\bar{x}^2}{n-1}} \\
+              職員数yの平均&=&\bar{y}=\frac{\sum_{i=1}^{n} y_i}{n} \\
+              職員数yの標準偏差&=&\sqrt{\frac{\sum_{i=1}^{n} (y_i-\bar{y})^2}{n-1}}=\sqrt{\frac{\sum_{i=1}^{n} {y_i}^2-n\bar{y}^2}{n-1}}
+          \end{eqnarray}
+    \item [4.]人口$x$と職員数$y$のPearsonの積率相関係数$r$を計算する。
+          \begin{eqnarray}
+              r=\frac{\sum_{i=1}^{n} (x_i-\bar{x})(y_i-\bar{y})}{\sqrt{\sum_{i=1}^{n} (x_i-\bar{x})^2} \sqrt{\sum_{i=1}^{n} (y_i-\bar{y})^2}}=\frac{\sum_{i=1}^{n} {x_iy_i}-n\bar{xy}}{\sqrt{\sum_{i=1}^{n} (x_i-\bar{x})^2} \sqrt{\sum_{i=1}^{n} (y_i-\bar{y})^2}}
+          \end{eqnarray}
+    \item [5.]人口$x$を横軸,職員数$y$を縦軸にした散布図を作成して、両者の関係を調べる。
+    \item [6.]単回帰モデル$y_i=\beta_0+\beta_1 x_i + \varepsilon_i(i=1,...,n)$をあてはめる。
+          $\beta_0$と$\beta_1$の推定量を$\hat{\beta_0}$と$\hat{\beta_1}$とすると、
+          目的変数(応答変数)である職員数の予測値は$\hat{y_i}=\hat{\beta_0}+\hat{\beta_1}x_i$で
+          与えられる。
+          次式の残差平方和$S_e$を$\hat{\beta_0}$と$\hat{\beta_1}$でそれぞれ偏微分する。
+          \begin{eqnarray}
+              S_e=\sum_{i=1}^{n} (y_i-\hat{y_i})^2 = \sum_{i=1}^{n} (y_i-(\hat{\beta_0}+\hat{\beta_1}x_i))^2
+          \end{eqnarray}
+    \item [7.]正規方程式を作成する。
+    \item [8.]正規方程式を解き、$\beta_0$と$\beta_1$の最小二乗推定量を数式で表現する。
+    \item [9.]最小二乗推定量$\hat{\beta_0}$,$\hat{\beta_1}$の値を求める。
+    \item [10.]得られた回帰直線($\hat{y_i}=\hat{\beta_0}+\hat{\beta_1}x_i$)を
+          手順5で作成した散布図に図示して、結果を考察する。
+    \item [11.]データ分析[回帰分析]を用いて、これまでに得られた結果と同様の結果が得られることを確認する。
+\end{itemize}
+
+\clearpage
+
+\subsection{実験2 単回帰分析における行列表現}
+データ数を$n$とする。
+目的変数ベクトル$Y$と説明変数を含む定数行列$X$を次式で定義する。
+\begin{enumerate}
+    \item あ
+\end{enumerate}
+
 
 \begin{lstlisting}
     ぱあ
@@ -70,17 +149,6 @@
 \begin{lstlisting}[caption=read\_2\_1byte.c,label=read,style = lstR]
     #include <stdio.h>
 \end{lstlisting}
-
-\section{実験方法}
-\subsection{実験1 推定と検定の考え方と手順}
-\begin{itemize}
-    \item [1.]
-\end{itemize}
-
-\subsection{実験2 $t$分布}
-\begin{itemize}
-    \item [1.]
-\end{itemize}
 
 \section{結果・考察・課題}
 
