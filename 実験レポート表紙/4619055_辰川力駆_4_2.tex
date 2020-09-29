@@ -1,0 +1,115 @@
+\documentclass[12pt]{jarticle}
+\usepackage{TUSIReport}
+\usepackage{otf}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{hhline}
+\usepackage{fancybox,ascmac}
+\usepackage{multirow}
+\usepackage{url}
+\usepackage{listings,jlisting}
+\lstdefinestyle{log}{
+    frame={tblr},
+    basicstyle={\footnotesize},
+    tabsize={4},
+}
+\lstdefinestyle{lstR}{
+    language={C},
+    backgroundcolor={\color[gray]{.85}},
+    basicstyle={\small},
+    identifierstyle={\small},
+    commentstyle={\small\ttfamily \color[rgb]{0,0.5,0}},
+    keywordstyle={\small\bfseries \color[rgb]{1,0,0}},
+    ndkeywordstyle={\small},
+    stringstyle={\small\ttfamily \color[rgb]{0,0,1}},
+    frame={tb},
+    breaklines=true,
+    columns=[l]{fullflexible},
+    numbers=left,
+    xrightmargin=0zw,
+    xleftmargin=3zw,
+    numberstyle={\scriptsize},
+    stepnumber=1,
+    numbersep=1zw,
+    morecomment=[l]{//}
+}
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 表紙を出力する場合は，\提出者と\共同実験者をいれる
+% \提出者{科目名}{課題名}{提出年}{提出月}{提出日}{学籍番号}{氏名}
+% \共同実験者{一人目}{二人目}{..}{..}{..}{..}{..}{八人目}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\提出者{情報工学実験2}{実験テーマ4 統計的推測と単回帰分析}{2020}{9}{28}{4619055}{辰川力駆}
+\共同実験者{}{}{}{}{}{}{}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 表紙を出力しない場合は，以下の「\表紙出力」をコメントアウトする
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\表紙出力
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 以下はレポート本体である．別途 TeXファイルを作成し \input 使っても良い
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{はじめに}
+本実験では、単回帰分析の考え方と手順を理解することを目標とする。
+
+\section{目的}
+\begin{itemize}
+    \item [1.]
+\end{itemize}
+
+\begin{lstlisting}
+    ぱあ
+\end{lstlisting}
+\begin{shadebox}
+    \fbox{ぱあ}
+\end{shadebox}
+\begin{lstlisting}[caption=read\_2\_1byte.c,label=read,style = lstR]
+    #include <stdio.h>
+\end{lstlisting}
+
+\section{実験方法}
+\subsection{実験1 推定と検定の考え方と手順}
+\begin{itemize}
+    \item [1.]
+\end{itemize}
+
+\subsection{実験2 $t$分布}
+\begin{itemize}
+    \item [1.]
+\end{itemize}
+
+\section{結果・考察・課題}
+
+\section{まとめ}
+\begin{itemize}
+    \item [1.]単回帰分析の考え方と手順を学んだ
+          \begin{itemize}
+              \item 手計算やエクセルで分析を行った
+          \end{itemize}
+    \item [2.]単回帰分析における行列表現を学んだ
+          \begin{itemize}
+              \item 実験1の手順を行列表現した
+              \item Rを使い、単回帰分析を行った
+          \end{itemize}
+\end{itemize}
+
+\section{感想}
+
+
+\clearpage
+% 参考文献
+\begin{thebibliography}{99}
+    \label{sannkoubunnkenn_chapter}
+    \bibitem[1]{rikadai}東京理科大学工学部情報工学科 情報工学実験2 2020年度
+    東京理科大学工学部情報工学科出版
+\end{thebibliography}
+
+\clearpage
+
+\appendix
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
