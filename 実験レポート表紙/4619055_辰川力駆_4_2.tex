@@ -105,10 +105,10 @@
           \end{eqnarray}
     \item [3.]人口$x$と職員数$y$の基本統計量(データ数、平均、標準偏差、最小値、最大値)を計算する。
           \begin{eqnarray}
-              人口xの平均&=&\bar{x}=\frac{\sum_{i=1}^{n} x_i}{n} \\
-              人口xの標準偏差&=&\sqrt{\frac{\sum_{i=1}^{n} (x_i-\bar{x})^2}{n-1}}=\sqrt{\frac{\sum_{i=1}^{n} {x_i}^2-n\bar{x}^2}{n-1}} \\
-              職員数yの平均&=&\bar{y}=\frac{\sum_{i=1}^{n} y_i}{n} \\
-              職員数yの標準偏差&=&\sqrt{\frac{\sum_{i=1}^{n} (y_i-\bar{y})^2}{n-1}}=\sqrt{\frac{\sum_{i=1}^{n} {y_i}^2-n\bar{y}^2}{n-1}}
+              人口xの平均&=&\bar{x}=\frac{\sum_{i=1}^{n} x_i}{n} \nonumber\\
+              人口xの標準偏差&=&\sqrt{\frac{\sum_{i=1}^{n} (x_i-\bar{x})^2}{n-1}}=\sqrt{\frac{\sum_{i=1}^{n} {x_i}^2-n\bar{x}^2}{n-1}} \nonumber\\
+              職員数yの平均&=&\bar{y}=\frac{\sum_{i=1}^{n} y_i}{n} \nonumber\\
+              職員数yの標準偏差&=&\sqrt{\frac{\sum_{i=1}^{n} (y_i-\bar{y})^2}{n-1}}=\sqrt{\frac{\sum_{i=1}^{n} {y_i}^2-n\bar{y}^2}{n-1}} \nonumber
           \end{eqnarray}
     \item [4.]人口$x$と職員数$y$のPearsonの積率相関係数$r$を計算する。
           \begin{eqnarray}
@@ -158,33 +158,165 @@
 \]
 このとき、実験1の単回帰モデルは
 \begin{eqnarray}
-    \bm y=X\beta+\varepsilon
+    \bm y=\bm X \bm \beta+ \bm \varepsilon \nonumber
 \end{eqnarray}
+で与えられる。ここで$\bm \beta$は母回帰係数,$ \bm \varepsilon$は誤差ベクトルであり、
+次式で定義される。
 
 \[
-    \beta = \left(
+    \bm \beta = \left(
     \begin{array}{c}
             \beta_0 \\
             \beta_1
         \end{array}
     \right)
 \]
-
-
+\[
+    \bm \varepsilon = \left(
+    \begin{array}{c}
+            \varepsilon_0 \\
+            \varepsilon_1 \\
+            \vdots        \\
+            \varepsilon_n
+        \end{array}
+    \right)
+\]
+$\bm \beta$の推定量を$\hat{\bm \beta}=(\hat{\beta_0},\hat{\beta_1})^T$とする。
 \begin{enumerate}
-    \item あ
+    \item 残差平方和$S_e$を行列で表現する。
+    \item 残差平方和$S_e$を$\hat{\bm \beta}$で微分し、正規方程式を導く。
+    \item 正規方程式から最小二乗推定量が
+          \begin{eqnarray}
+              \hat{\bm \beta}=(\bm X^T \bm X)^{-1} \bm X^T \bm y
+          \end{eqnarray}
+          で得られることを確認する。
+    \item ベクトル$\bm Y$と行列$\bm X$を定義する。
+          \clearpage
+    \item 次の値を計算する。
+          \begin{itemize}
+              \item [(a)]$x$の平均$\bar{x}$
+              \item [(b)]$y$の平均$\bar{y}$
+              \item [(c)]$x$の偏差平方和$\bar{x}=\sum_{i=1}^{n} (x_i-\bar{x})^2$
+              \item [(d)]$y$の偏差平方和$\bar{y}=\sum_{i=1}^{n} (y_i-\bar{y})^2$
+          \end{itemize}
+    \item 次の値を計算する。
+          \begin{itemize}
+              \item [(a)]最小二乗推定量 $\hat{\bm \beta}=(\bm X^T \bm X)^{-1} \bm X^T \bm Y$
+              \item [(b)]予測値$\hat{\bm Y}=\bm X \hat{\bm \beta}$
+              \item [(c)]残差$\bm Y-\hat{\bm Y}$
+          \end{itemize}
+    \item 射影行列$\bm H = \bm X (\bm X^T \bm X)^{-1}\bm X^T$を計算し、次式が成り立つことを確認する。
+          \begin{itemize}
+              \item [(a)]対称性$\bm H^T=\bm H$
+              \item [(b)]べき等性$\bm H \bm H = \bm H$
+              \item [(c)]$trace(\bm H)= 2$（パラメータ数）
+          \end{itemize}
+    \item 得られた最小二乗推定量のもとで、総平方和、モデル平方和、残差平方和を計算し
+          \begin{eqnarray}
+              総平方和=モデル平方和+残差平方和
+          \end{eqnarray}
+          が成り立つことを確認する。
+    \item 寄与率（決定係数）= モデル平方和/総平方和を計算し、モデルの当てはまりを評価する。
 \end{enumerate}
+
+\clearpage
+
+\section{結果・考察・課題}
+\subsection{実験1 単回帰分析の考え方と手順}
+\begin{shadebox}
+    \fbox{課題1}実験1の結果をまとめる。
+\end{shadebox}
+\begin{itemize}
+    \item [1.]計算すると次のようになった。
+          \begin{eqnarray}
+              \sum_{i=1}^{n} x_i&=&15 \nonumber\\
+              \sum_{i=1}^{n} y_i&=&135 \nonumber\\
+              \sum_{i=1}^{n} {x_i}^2&=&49 \nonumber\\
+              \sum_{i=1}^{n} {y_i}^2&=&4125 \nonumber\\
+              \sum_{i=1}^{n} x_iy_i&=&435 \nonumber
+          \end{eqnarray}
+    \item [2.]式(1),(2),(3)が成り立つことを示す。式(1)の左辺を変形すると、
+          \begin{eqnarray}
+              \sum_{i=1}^{n} (x_i-\bar{x})^2&=&\sum_{i=1}^{n} (x_i^2-2x_i\bar{x}+\bar{x}^2) \nonumber\\
+              &=&\sum_{i=1}^{n} x_i^2-\sum_{i=1}^{n} 2x_i\bar{x}+n\bar{x}^2 \nonumber\\
+              &=&\sum_{i=1}^{n} x_i^2-\sum_{i=1}^{n} 2\bar{x}^2+n\bar{x}^2 \nonumber \\
+              &=&\sum_{i=1}^{n} x_i^2-2n\bar{x}^2+n\bar{x}^2 \nonumber \\
+              &=&\sum_{i=1}^{n} x_i^2-n\bar{x}^2 \nonumber
+          \end{eqnarray}
+          となり、右辺と一致する。
+          同様にして、式(2)の左辺を変形すると、下記のようになり右辺と一致する。
+          \begin{eqnarray}
+              \sum_{i=1}^{n} (y_i-\bar{y})^2&=&\sum_{i=1}^{n} (y_i^2-2y_i\bar{y}+\bar{y}^2) \nonumber\\
+              &=&\sum_{i=1}^{n} y_i^2-2n\bar{y}^2+n\bar{y}^2 \nonumber \\
+              &=&\sum_{i=1}^{n} y_i^2-n\bar{y}^2 \nonumber
+          \end{eqnarray}
+          式(3)も同様の考え方より、
+          \begin{eqnarray}
+              \sum_{i=1}^{n} (x_i-\bar{x})(y_i-\bar{y})&=& \sum_{i=1}^{n} (x_iy_i-x_i\bar{y}-y_i\bar{x}+\bar{x}\bar{y}) \nonumber \\
+              &=& \sum_{i=1}^{n} x_iy_i-n\bar{x}\bar{y}-n\bar{x}\bar{y}+n\bar{x}\bar{y} \nonumber \\
+              &=&   \sum_{i=1}^{n} {x_iy_i}-n\bar{xy} \nonumber
+          \end{eqnarray}
+          となり、証明できた。
+
+    \item [3.]データの数は$x$,$y$どちらも、6つである。残りの基本統計量(平均、標準偏差、最小値、最大値)は以下のようになった。
+          \begin{table}[htb]
+              \begin{center}
+                  \caption{人口と行政職員数の基本統計量}
+                  \begin{tabular}{|c|c|c|} \hline
+                      基本統計量 & 人口$x$(千人) & 職員数$y$(人) \\ \hline
+                      平均       & 2.5           & 22.5          \\
+                      標準偏差   & 1.52          & 14.75         \\
+                      最小値     & 1             & 5             \\
+                      最大値     & 5             & 40            \\ \hline
+                  \end{tabular}
+              \end{center}
+          \end{table}
+
+
+    \item [4.]Pearsonの積率相関係数$r$は次のようになった。
+          \begin{eqnarray}
+              r&=&\frac{\sum_{i=1}^{n} (x_i-\bar{x})(y_i-\bar{y})}{\sqrt{\sum_{i=1}^{n} (x_i-\bar{x})^2} \sqrt{\sum_{i=1}^{n} (y_i-\bar{y})^2}} \nonumber\\
+              &\fallingdotseq &0.87 \nonumber
+          \end{eqnarray}
+    \item [5.]人口$x$を横軸,職員数$y$を縦軸にした散布図を作成して、両者の関係を調べる。
+    \item [6.]単回帰モデル$y_i=\beta_0+\beta_1 x_i + \varepsilon_i(i=1,...,n)$をあてはめる。
+          $\beta_0$と$\beta_1$の推定量を$\hat{\beta_0}$と$\hat{\beta_1}$とすると、
+          目的変数(応答変数)である職員数の予測値は$\hat{y_i}=\hat{\beta_0}+\hat{\beta_1}x_i$で
+          与えられる。
+          次式の残差平方和$S_e$を$\hat{\beta_0}$と$\hat{\beta_1}$でそれぞれ偏微分する。
+          \begin{eqnarray}
+              S_e=\sum_{i=1}^{n} (y_i-\hat{y_i})^2 = \sum_{i=1}^{n} (y_i-(\hat{\beta_0}+\hat{\beta_1}x_i))^2
+          \end{eqnarray}
+    \item [7.]正規方程式を作成する。
+    \item [8.]正規方程式を解き、$\beta_0$と$\beta_1$の最小二乗推定量を数式で表現する。
+    \item [9.]最小二乗推定量$\hat{\beta_0}$,$\hat{\beta_1}$の値を求める。
+    \item [10.]得られた回帰直線($\hat{y_i}=\hat{\beta_0}+\hat{\beta_1}x_i$)を
+          手順5で作成した散布図に図示して、結果を考察する。
+    \item [11.]データ分析[回帰分析]を用いて、これまでに得られた結果と同様の結果が得られることを確認する。
+\end{itemize}
+
+\begin{shadebox}
+    \fbox{課題2}公表されてるデータ(標本数が50以上)を集めて、回帰分析を適用し、結果を考察する。
+\end{shadebox}
+
+\subsection{実験2 単回帰分析における行列表現}
+\begin{shadebox}
+    \fbox{課題1}実験2の結果をまとめる。
+\end{shadebox}
+
+\begin{shadebox}
+    \fbox{課題2}行列を用いて統計演算を行う利点を考察する。
+\end{shadebox}
+
+
 \begin{lstlisting}[style=log]
     ぱあ
 \end{lstlisting}
-\begin{shadebox}
-    \fbox{ぱあ}
-\end{shadebox}
+
 \begin{lstlisting}[caption=read\_2\_1byte.c,label=read,style = lstR]
     #include <stdio.h>
 \end{lstlisting}
 
-\section{結果・考察・課題}
 
 \section{まとめ}
 \begin{itemize}
