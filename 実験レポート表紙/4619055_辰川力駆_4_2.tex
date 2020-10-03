@@ -9,6 +9,7 @@
 \usepackage{fancybox,ascmac}
 \usepackage{multirow}
 \usepackage{url}
+\usepackage{bm}
 \usepackage{listings,jlisting}
 \lstdefinestyle{log}{
     frame={tblr},
@@ -134,13 +135,46 @@
 
 \subsection{実験2 単回帰分析における行列表現}
 データ数を$n$とする。
-目的変数ベクトル$Y$と説明変数を含む定数行列$X$を次式で定義する。
+目的変数ベクトル$\bm Y$と説明変数を含む定数行列$\bm X$を次式で定義する。
+\[
+    \bm Y = \left(
+    \begin{array}{c}
+            y_1    \\
+            y_2    \\
+            \vdots \\
+            y_n
+        \end{array}
+    \right)
+\]
+\[
+    \bm X = \left(
+    \begin{array}{cc}
+            1      & x_1    \\
+            1      & x_2    \\
+            \vdots & \vdots \\
+            1      & x_n
+        \end{array}
+    \right)
+\]
+このとき、実験1の単回帰モデルは
+\begin{eqnarray}
+    \bm y=X\beta+\varepsilon
+\end{eqnarray}
+
+\[
+    \beta = \left(
+    \begin{array}{c}
+            \beta_0 \\
+            \beta_1
+        \end{array}
+    \right)
+\]
+
+
 \begin{enumerate}
     \item あ
 \end{enumerate}
-
-
-\begin{lstlisting}
+\begin{lstlisting}[style=log]
     ぱあ
 \end{lstlisting}
 \begin{shadebox}
