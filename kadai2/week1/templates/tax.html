@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>消費税計算機</title>
+</head>
+
+<body>
+    <h1>消費税計算機</h1>
+    <form action="" method="POST">
+        <p><label>金額<input type="number" name="price" value={{price}}>円
+        </label></p>
+        <p>
+            <label><input type="radio" name="type" value="intax">税込金額
+            </label>
+            <label><input type="radio" name="type" value="extax">税抜金額
+            </label>
+        </p>
+
+        <p><input type="submit" value="送信"></p>
+    </form>
+
+
+    <!--$data['taxrate']=10(％)が存在するなら表を表示-->
+    {% if taxrate %}
+    <table border="1">
+        <tr>
+            <th>消費税率</th>
+            <th>税抜金額</th>
+            <th>消費税</th>
+            <th>税込金額</th>
+        </tr>
+        <tr>
+            <td>{{taxrate}}%</td>
+            <td>{{extax}}円</td>
+            <td>{{tax}}円</td>
+            <td>{{intax}}円</td>
+        </tr>
+    </table>
+    {% endif %}
+
+
+</body>
+
+</html>

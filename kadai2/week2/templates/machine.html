@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>自動販売機</title>
+</head>
+
+<body>
+    <form action="" method="POST">
+        <table>
+            <caption>商品を選んでください</caption>
+            <tr>
+                <th>商品名</th>
+                <th>価格</th>
+                <th>在庫</th>
+                <th>個数</th>
+            </tr>
+            {% for item in items %}
+            <tr>
+                <td>{{item.name}}</td>
+                <td>{{item.price}}</td>
+                <td>{{item.num}}</td>
+                <td><input type="number" name="buyitem[{{item.id}}]" value="0"></td>
+            </tr>
+            {% endfor %}
+        </table>
+        <p>
+            <label>
+                投入金額
+                <input type="number" name="pay" value="{{pay}}">
+                <input type="submit" value="購入">
+            </label>
+        </p>
+    </form>
+
+    {% if result=='Finish' %}
+    <table width="300">
+        <caption>レシート</caption>
+        {% for item in items %}
+        {% if buyitem[item.id] != 0 %}
+        <tr>
+            <th align="left">{{item.name}}</th>
+            <td align="right">{{buyitem[item.id]}}</td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+        <tr>
+            <th align="left">入金金額</th>
+            <td align="right">{{pay}}</td>
+        </tr>
+        <tr>
+            <th align="left">購入金額</th>
+            <td align="right">{{sum}}</td>
+        </tr>
+        <tr>
+            <th align="left">お釣り</th>
+            <td align="right">{{change}}</td>
+        </tr>
+    </table>
+    {% endif %}
+
+    {% if result=='Error' %}
+    <table width="300">
+        {% for log in errorlog %}
+        <tr>
+            <th>{{log}}</th>   <!--エラーを出力-->
+        </tr>
+          {% endfor %}
+    </table>
+    {% endif %}
+</body>
+
+</html>

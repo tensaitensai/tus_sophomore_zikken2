@@ -1,0 +1,5 @@
+RewriteEngine On
+RewriteRule ^css/ - [L]
+RewriteRule ^ sample8.php [QSA,L]
+order deny,allow
+allow from all
