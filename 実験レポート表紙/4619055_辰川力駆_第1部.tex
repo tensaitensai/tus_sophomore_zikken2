@@ -1,0 +1,177 @@
+\documentclass[12pt]{jarticle}
+\usepackage{TUSIReport}
+\usepackage{otf}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage[dvipdfmx]{color}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{hhline}
+\usepackage{fancybox,ascmac}
+\usepackage{multirow}
+\usepackage{url}
+\usepackage{bm}
+\usepackage{listings,jlisting}
+\lstdefinestyle{log}{
+    frame={tblr},
+    basicstyle={\footnotesize},
+    tabsize={4},
+}
+\lstdefinestyle{lsthtml}{
+    language={html},
+    backgroundcolor={\color[gray]{.85}},
+    basicstyle={\small},
+    identifierstyle={\small},
+    commentstyle={\small\ttfamily \color[rgb]{0,0.5,0}},
+    keywordstyle={\small\bfseries \color[rgb]{1,0,0}},
+    ndkeywordstyle={\small},
+    stringstyle={\small\ttfamily \color[rgb]{0,0,1}},
+    frame={tb},
+    breaklines=true,
+    columns=[l]{fullflexible},
+    numbers=left,
+    xrightmargin=0zw,
+    xleftmargin=3zw,
+    numberstyle={\scriptsize},
+    stepnumber=1,
+    numbersep=1zw,
+    morecomment=[l]{//}
+}
+\lstdefinestyle{lstcpp}{
+    language={C++},
+    backgroundcolor={\color[gray]{.85}},
+    basicstyle={\small},
+    identifierstyle={\small},
+    commentstyle={\small\ttfamily \color[rgb]{0,0.5,0}},
+    keywordstyle={\small\bfseries \color[rgb]{1,0,0}},
+    ndkeywordstyle={\small},
+    stringstyle={\small\ttfamily \color[rgb]{0,0,1}},
+    frame={tb},
+    breaklines=true,
+    columns=[l]{fullflexible},
+    numbers=left,
+    xrightmargin=0zw,
+    xleftmargin=3zw,
+    numberstyle={\scriptsize},
+    stepnumber=1,
+    numbersep=1zw,
+    morecomment=[l]{//}
+}
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 表紙を出力する場合は，\提出者と\共同実験者をいれる
+% \提出者{科目名}{課題名}{提出年}{提出月}{提出日}{学籍番号}{氏名}
+% \共同実験者{一人目}{二人目}{..}{..}{..}{..}{..}{八人目}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\提出者{情報工学実験2}{実験テーマ1 数理計画法}{2020}{10}{19}{4619055}{辰川力駆}
+\共同実験者{}{}{}{}{}{}{}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 表紙を出力しない場合は，以下の「\表紙出力」をコメントアウトする
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\表紙出力
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 以下はレポート本体である．別途 TeXファイルを作成し \input 使っても良い
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{実験の要旨}
+本実験では実際に最適化問題を定式化をしながら解の検討をすることにより、
+最適化問題への理解を深める。
+
+\section{実験の目的}
+最適化問題を解くための数理的手法は数理計画法と呼ばれる。
+その数理計画法を現実問題に適用する際に役立つ基礎力を養うことを目的とする。
+
+\section{実験の原理(理論)}
+
+\section{実験方法}
+
+\section{実験結果}
+
+\section{検討・考察}
+
+\section{まとめ}
+
+
+\clearpage
+
+% 参考文献
+\begin{thebibliography}{99}
+    \label{sannkoubunnkenn_chapter}
+    \bibitem[1]{rikadai}東京理科大学工学部情報工学科 情報工学実験2 2020年度
+    東京理科大学工学部情報工学科出版
+
+\end{thebibliography}
+
+
+\clearpage
+
+% 付録
+\appendix
+\section{付録}
+\begin{lstlisting}[style = lstcpp,caption=saiteki.cpp]
+    #include <bits/stdc++.h>
+    using namespace std;
+    template <class T>
+    inline bool chmax(T &a, T b)
+    {
+        if (a < b)
+        {
+            a = b;
+            return 1;
+        }
+        return 0;
+    }
+    template <class T>
+    inline bool chmin(T &a, T b)
+    {
+        if (a > b)
+        {
+            a = b;
+            return 1;
+        }
+        return 0;
+    }
+    
+    using pll = pair<long long, long long>;
+    pll sub(long long h, long long w)
+    {
+        if (h % 2 == 0 || w % 2 == 0)
+            return {h * w / 2, h * w / 2};
+        if (h > w)
+            swap(h, w);
+        return {h * (w + 1) / 2, h * (w - 1) / 2};
+    }
+    
+    int main()
+    {
+        long long H, W;
+        cin >> H >> W;
+        long long res = H * W;
+    
+        for (long long h = 1; h < H; ++h)
+        {
+            vector<long long> a(3);
+            a[0] = h * W;
+            auto p = sub(H - h, W);
+            a[1] = p.first, a[2] = p.second;
+            sort(a.begin(), a.end());
+            chmin(res, a.back() - a[0]);
+        }
+        for (long long w = 1; w < W; ++w)
+        {
+            vector<long long> a(3);
+            a[0] = H * w;
+            auto p = sub(H, W - w);
+            a[1] = p.first, a[2] = p.second;
+            sort(a.begin(), a.end());
+            chmin(res, a.back() - a[0]);
+        }
+        cout << res << endl;
+    }
+\end{lstlisting}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
