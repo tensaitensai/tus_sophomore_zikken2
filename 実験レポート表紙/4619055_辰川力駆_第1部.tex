@@ -248,7 +248,143 @@ $\boldsymbol{x^*}$を局所的最適解と呼ぶ。
 
 \section{実験結果}
 
+\subsection*{(1)}
+現実の最適化問題として、1ルームのシェアハウスをすると考える。
+長方形の部屋1つに対し、(2人分に分けるのはあまりにも容易なので)3人分に分けることを考える。
+このとき仲が悪くならないように3つの面積の差が小さくなるように分ける。
+
+例えば、$縦(H)\times 横(W)$(制約条件$1\leq H,W \leq 10^5$)のもとで3つに分けることを考えて
+面積の最大値と最小値の差が最小になるように考えれば良い。
+
+\clearpage
+\subsection*{(2)}
+\fbox{問1}
+2つの野菜の合計の値段を$f(\boldsymbol{x})$とし、
+2つの野菜($V_1$,$V_2$)の量をそれぞれ$x_1[g]$と$x_2[g]$とする。
+2つの野菜の単価と取れる栄養素は表1の通りである。
+栄養素$A_i$は1日に$b_i[mg]$取らなければならない。
+これらを定式化すると、
+\begin{eqnarray}
+    f(\boldsymbol{x})=c_1 x_1 +c_2 x_2,\ S=\{\boldsymbol{x};x_1,x_2\in \mathbb{R},\ x_1,x_2\geq 0,\ a_{1i} x_1+a_{2i}x_2\geq b_i(i=1,2,3)\}\nonumber
+\end{eqnarray}
+とすれば、「Minimize\ $f(\boldsymbol{x})$\ subject\ to \ $\boldsymbol{x}$\ $\in$ $S$\ 」とかける。
+
+\fbox{問2}
+表1の例として具体的な数値を適当に代入したものを表3に示す。
+\begin{table}[htb]
+    \begin{center}
+        \caption{例2の各栄養素の含有量(具体的な例)}
+        \begin{tabular}{|c|c|c|c|c|}
+            \hline
+                      & 単価$[円/g]$ & 栄養素$A_1[mg/g]$ & 栄養素$A_2[mg/g]$ & 栄養素$A_3[mg/g]$ \\
+            \hline
+            野菜$V_1$ & 3            & 120               & 80                & 30                \\
+            野菜$V_2$ & 2.5          & 100               & 90                & 20                \\
+            \hline
+        \end{tabular}
+    \end{center}
+\end{table}
+
+また、$(b_1,b_2,b_3)=(10000,15000,5000)$とする。
+横軸が$x_1$,縦軸が$x_2$とすると、実行可能領域は図1の黒の斜線部分となる。
+ただし、境界を含む。
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[scale=0.2]{kadai1_1.png}
+    \end{center}
+    \caption{問2の実行可能領域}
+\end{figure}
+
+よって、$f(\boldsymbol{x})=3x_1+2.5x_2$を最小にすることを考えると、
+最適解は$(x_1,x_2)\approx (136.364,45.455)$で、
+最適値は523円である。
+
+\clearpage
+\fbox{問3}
+この問題は一般に個数制限ありナップサック問題と言われ、動的計画法で解くことができる。
+
+まず、$x_1からx_5$を価格の大きい順に並べ替える。
+\begin{table}[htb]
+    \begin{center}
+        \caption{問3の動的計画法の表}
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+            \hline
+             & 30  & 40  & 50  & 60  & 70  & 80  & 90  & 100 & 110 & 120 & 130 & 140 & 150 & 160 \\
+            \hline
+            $x_1$                                                                                \\
+            $x_2$                                                                                \\
+            $x_3$                                                                                \\
+            $x_4$                                                                                \\
+            $x_5$                                                                                \\
+            \hline
+            \hline
+             & 170 & 180 & 190 & 200 & 210 & 220 & 230 & 240 & 250 & 260 & 270 & 280 & 290 & 300 \\
+            \hline
+            $x_1$                                                                                \\
+            $x_2$                                                                                \\
+            $x_3$                                                                                \\
+            $x_4$                                                                                \\
+            $x_5$                                                                                \\
+            \hline
+        \end{tabular}
+    \end{center}
+\end{table}
+
+よって、最適解は$(x_1,x_2,x_3,x_4,x_5)=(1,1,0,1,0)$つまり、チョコとクッキーとグミを買ったときで、
+最適値(嬉しさ)は21である。
+
+\fbox{問4}
+
+\textbf{Aについて}
+
+グミとガムについてなので$x_4$,$x_5$についての制約条件を考えれば良い。
+数式で表現すると、
+\begin{eqnarray}
+    x_4+x_5<2\nonumber
+\end{eqnarray}
+と表せる。
+実際、グミとガムを両方買う時のみ$x_4+x_5=2$となり、
+片方のみ買う時は$x_4+x_5=1$で両方買わない時は$x_4+x_5=0$なので、
+妥当性に欠けていないことがわかる。
+
+\textbf{Bについて}
+
+ポテチとガムについてなので$x_3$,$x_5$についての制約条件を考えれば良い。
+数式で表現すると、
+\begin{eqnarray}
+    x_3\leq x_5\nonumber
+\end{eqnarray}
+と表せる。
+実際、ポテチを買う時は$1\leq x_5$となり、$x_5=1$つまりガムを買わないといけなくなる。
+また、ポテチを買わない時は$0 \leq x_5$となり、$x_5=0,1$の両方をとるのでどちらでも良くなる。
+よって、妥当性に欠けていないことがわかる。
+
+\fbox{問5}
+
+\fbox{問6}
+
+\subsection*{(3)}
+
+
+
 \section{検討・考察}
+\subsection*{(2)}
+\fbox{問1}
+
+\fbox{問2}
+
+\fbox{問3}
+実験結果では動的計画法で解いたが、今回は5つお菓子しかなかったので、$2^5=32$通りを探索するという考えでも解くことができる。
+ただし、数が多くなると全探索をするのに時間がかかってしまうので、
+その場合は自分が行ったような動的計画法などの違う方法で求めるべきである。
+
+\fbox{問4}
+
+\fbox{問5}
+
+\fbox{問6}
+
+\subsection*{(3)}
 
 \section{まとめ}
 
@@ -260,6 +396,13 @@ $\boldsymbol{x^*}$を局所的最適解と呼ぶ。
     \label{sannkoubunnkenn_chapter}
     \bibitem[1]{rikadai}東京理科大学工学部情報工学科 情報工学実験2 2020年度
     東京理科大学工学部情報工学科出版
+
+    \bibitem[2]{toukei}
+    関数グラフ - GeoGebra
+
+    \url{https://www.geogebra.org/graphing?lang=ja}
+
+    最終閲覧日2020/10/23
 
 \end{thebibliography}
 
