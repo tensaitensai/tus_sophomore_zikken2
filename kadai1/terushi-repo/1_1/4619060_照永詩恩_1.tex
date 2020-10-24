@@ -10,31 +10,7 @@
 \表紙出力
 
 \section{実験の原理(理論)}
-定式化は,大雑把に言うと,言葉で説明された最適化問題に数式での表現を与えることである.
-参考文献[1]に記載されている4つ例題をもとにして原理を述べる.\\
-\subsection{用語の説明}
-最適化問題は,数学的には,解集合と呼ばれる集合$S$と目的関数と呼ばれる関数
-$f:S \rightarrow \boldsymbol{R}$が与えられたとき,$f( \boldsymbol{x} )$を最小にする$ \boldsymbol{x} $
-を求める問題であり,これを,
-\begin{center}
-	Minimize \ $f(\boldsymbol{x})$ \ subject \ to \ $\boldsymbol{x}$ \ $\in$ \ $S$
-\end{center}
-とかく.つまり,$\boldsymbol{S}$の任意の$\boldsymbol{x}$に対し,$f(\boldsymbol{x^*})\leq f(\boldsymbol{x})$を満たす
-$\boldsymbol{x^*}$を最適解と呼ぶ.また,$\boldsymbol{x^*}$が局所的に最小なら,つまり,
-\begin{equation}
-	\exists \epsilon >0,\ \ \forall \boldsymbol{x} \in N_\epsilon(\boldsymbol{x^*}), \ \ f(\boldsymbol{x^*})\leq f(\boldsymbol{x})\nonumber
-\end{equation}
-が成り立つなら,$\boldsymbol{x^*}$を局所的最適解と呼ぶ.ただし,$N_\epsilon(\boldsymbol{x^*})=\{\boldsymbol{x};||\boldsymbol{x^*}-\boldsymbol{x}||<\epsilon\}$
-である.局所的最適解と区別するために最適解を大域的最適解と呼ぶことも多い.大域的最適解と呼ぶことも多い.大域的最適解は局所的最適解になっているが,逆は成り立たないことに注意せよ.\\
-\subsection{例1}
-制御できる数値(数量)は,庭の縦の長さ$x_1[m]$と横の長さ$x_2[m]$であり,最適化問題の文脈では,
-決定変数と呼ばれる.また,決定変数が満たすべき条件は制約条件と呼ばれる.//
-\subsection{例2}
-制約条件と目的条件が線形式で,さらに,決定変数が連続値をとる連続変数となる最適化問題として,定式化される.このような
-問題は一般に線形計画問題と呼ばれる.
-\subsection{例3}
-離散値をとる変数を整数変数,特に0か1の値をとる変数をバイナリと呼ぶ.バイナリ変数は「ON/OFF」や「取る/取らない」等
-を表現できる極めて有用な変数である.整数変数を扱う最適化問題は整数最適化問題と呼ばれる.
+
 \section{実験方法}
 次の各項目に取り組む.
 \begin{description}
