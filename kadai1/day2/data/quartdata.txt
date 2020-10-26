@@ -1,0 +1,28 @@
+data set 1
+coefficient matrix A
+    0.0  -27.0    1.0
+   32.0  -11.0    0.0
+    4.0    0.0    0.0
+   -3.0    0.0    0.0
+    1.0    0.0    0.0
+
+three initial solutions
+  -17.0  -36.0
+  -33.0  -33.0
+   27.0   11.0
+
+
+data set 2
+coefficient matrix A
+    0.0  -33.0    1.0
+  -15.0  -31.0    0.0
+   -8.0    0.0    0.0
+    9.0    0.0    0.0
+    1.0    0.0    0.0
+
+three initial solutions
+  -24.0  -33.0
+   36.0  -15.0
+   25.0  -13.0
+
+
