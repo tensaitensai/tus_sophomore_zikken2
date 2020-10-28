@@ -123,7 +123,5 @@ double Armijo(double *x, double *d, double *g)
 //f2の式を用いている
 double func(double *x)
 {
-    double fun;
-    fun = M[0][1] * x[1] + M[0][2] * pow(x[1], 2) + M[1][0] * x[0] + M[1][1] * x[0] * x[1] + M[2][0] * pow(x[0], 2) + M[3][0] * pow(x[0], 3) + M[4][0] * pow(x[0], 4);
-    return fun;
+    return M[0][1] * x[1] + M[0][2] * pow(x[1], 2) + M[1][0] * x[0] + M[1][1] * x[0] * x[1] + M[2][0] * pow(x[0], 2) + M[3][0] * pow(x[0], 3) + M[4][0] * pow(x[0], 4);
 }
