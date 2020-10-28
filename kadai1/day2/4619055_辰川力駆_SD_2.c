@@ -6,11 +6,10 @@
 #define N 1000
 #define res 0.00000001 ///停止条件
 
-double func(double *x);                             ///f1の式を用いている
+double func(double *x);                             ///f2の式を用いている
 double Armijo(double *x, double *d, double *nabla); //Armijo
 
-double Q[2][2]; //Qのデータを保存
-double c[2];    //cのデータを保存
+double A[5][3]; //Aのデータを保存
 
 int main()
 {
@@ -30,16 +29,12 @@ int main()
     fflush(stdin);
     fp = fopen(fname, "r");
 
-    for (i = 0; i < 2; i++)
+    for (i = 0; i < 5; i++)
     {
-        for (j = 0; j < 2; j++)
+        for (j = 0; j < 3; j++)
         {
-            fscanf(fp, "%lf", &Q[i][j]);
+            fscanf(fp, "%lf", &A[i][j]);
         }
-    }
-    for (i = 0; i < 2; i++)
-    {
-        fscanf(fp, "%lf", &c[i]);
     }
     for (i = 0; i < 2; i++)
     {
@@ -47,21 +42,15 @@ int main()
     }
     fclose(fp);
 
-    printf("Q=\n");
-    for (i = 0; i < 2; i++)
+    printf("A=\n");
+    for (i = 0; i < 5; i++)
     {
-        for (j = 0; j < 2; j++)
+        for (j = 0; j < 3; j++)
         {
-            printf("%4.lf", Q[i][j]);
+            printf("%4.lf", A[i][j]);
         }
         printf("\n");
     }
-    printf("C=\n");
-    for (i = 0; i < 2; i++)
-    {
-        printf("%4.lf", c[i]);
-    }
-    printf("\n");
     printf("x=\n");
     for (i = 0; i < 2; i++)
     {
@@ -70,14 +59,11 @@ int main()
     printf("\n");
     printf("-----\n");
 
-    p = Q[0][0];
-    q = Q[0][1];
-    r = Q[1][1];
     k = 0;
     while (1)
     {
-        nabla[0] = p * x[0] + q * x[1] + c[0] + 2 * (x[0] - x[1]) * exp((x[0] - x[1]) * (x[0] - x[1]));
-        nabla[1] = q * x[0] + r * x[1] + c[1] - 2 * (x[0] - x[1]) * exp((x[0] - x[1]) * (x[0] - x[1]));
+        nabla[0] = A[1][0] + A[1][1] * x[1] + 2 * A[2][0] * x[0] + 3 * A[3][0] * pow(x[0], 2) + 4 * A[4][0] * pow(x[0], 3);
+        nabla[1] = A[0][1] + 2 * A[0][2] * x[1] + A[1][1] * x[0];
 
         d[0] = -nabla[0];
         d[1] = -nabla[1];
@@ -141,12 +127,8 @@ double Armijo(double *x, double *d, double *nabla)
     return alpha;
 }
 
-// f1の式を用いている
+//f2の式を用いている
 double func(double *x)
 {
-    double p, q, r;
-    p = Q[0][0];
-    q = Q[0][1];
-    r = Q[1][1];
-    return 0.5 * (p * x[0] * x[0] + 2 * q * x[0] * x[1] + r * x[1] * x[1]) + c[0] * x[0] + c[1] * x[1] + exp((x[0] - x[1]) * (x[0] - x[1]));
+    return A[0][1] * x[1] + A[0][2] * pow(x[1], 2) + A[1][0] * x[0] + A[1][1] * x[0] * x[1] + A[2][0] * pow(x[0], 2) + A[3][0] * pow(x[0], 3) + A[4][0] * pow(x[0], 4);
 }
