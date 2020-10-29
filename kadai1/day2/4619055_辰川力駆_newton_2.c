@@ -3,13 +3,16 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#define N 1000
+#define inf 10000000000000
+#define N 500
 #define res 0.00000001 ///停止条件
 
-double func(double *x);                             ///f2の式を用いている
-double Armijo(double *x, double *d, double *nabla); //Armijo
+double func(double *x);                           ///f2の式を用いている
+void Hf(double *x, double *d);                    //ヘッセ行列を求める
+void Newton(double *x, double *d, double *nabla); //dを計算する
 
-double A[5][3]; //Aのデータを保存
+double A[5][3];       //Aのデータを保存
+double Hessian[2][2]; //ヘッセ行列を保存
 
 int main()
 {
@@ -20,7 +23,6 @@ int main()
     double f;
     FILE *fp;
     int i, j, k;
-    double alpha;
 
     printf("input filename:");
     fgets(fname, sizeof(fname), stdin);
@@ -64,31 +66,30 @@ int main()
         nabla[0] = A[1][0] + A[1][1] * x[1] + 2 * A[2][0] * x[0] + 3 * A[3][0] * pow(x[0], 2) + 4 * A[4][0] * pow(x[0], 3);
         nabla[1] = A[0][1] + 2 * A[0][2] * x[1] + A[1][1] * x[0];
 
-        d[0] = -nabla[0];
-        d[1] = -nabla[1];
-
         norm = sqrt(nabla[0] * nabla[0] + nabla[1] * nabla[1]); ///ノルムを計算
 
+        Newton(x, d, nabla); //dを計算
         f = func(x);
-        alpha = Armijo(x, d, nabla);
-
         if (k <= 5 || (k <= 100 && k % 10 == 0) || k % 100 == 0) //5回目までと10n回目,100n回目(n=1,2,3,...10)を表示
         {
             printf("%d回目\n", k);
             printf("現在位置=(%.8lf,%.8lf)\n目的関数=%.8lf\n勾配ベクトル=(%.8lf,%.8lf)\nノルム=%.8lf\n", x[0], x[1], f, nabla[0], nabla[1], norm);
             printf("-----\n");
         }
-
-        x[0] = x[0] + alpha * d[0];
-        x[1] = x[1] + alpha * d[1];
+        x[0] = x[0] + d[0];
+        x[1] = x[1] + d[1];
         k++;
-
         if (norm < res) ///nablaのノルムが10^{-8}を越えていたら停止
         {
             break;
         }
-        if (k > N) ///反復回数が1000回越えたら停止
+        if (k > N) ///反復回数が500回越えたら停止
         {
+            break;
+        }
+        if (d[0] == inf) ///nabla^2が非正則なら停止
+        {
+            printf("非正則なので終了します\n");
             break;
         }
     }
@@ -98,32 +99,32 @@ int main()
     return 0;
 }
 
-double Armijo(double *x, double *d, double *nabla)
+void Newton(double *x, double *d, double *nabla)
 {
-    double alpha = 1.0;
-    double xi = 0.1;  ///今回の課題条件
-    double tau = 0.5; ///今回の課題条件
-    double fx, fy;
-    double y[2];
-
-    ///f(x_k)を求める
-    fx = func(x);
-
-    while (1)
+    double Hessian_inverse[2][2];
+    Hf(x, d);
+    if (Hessian[0][0] * Hessian[1][1] - Hessian[0][1] * Hessian[1][0] == 0) ///正則かどうか
     {
-        ///新しいalphaに対してのfyを求める
-        y[0] = x[0] + alpha * d[0];
-        y[1] = x[1] + alpha * d[1];
-        fy = func(y);
-
-        if (fy <= fx + xi * (nabla[0] * d[0] + nabla[1] * d[1]) * alpha) //Armijo条件
-        {
-            break;
-        }
-
-        alpha = tau * alpha; //alphaの更新
+        d[0] = inf;
+        d[1] = inf;
     }
-    return alpha;
+    else
+    {
+        Hessian_inverse[0][0] = 1 / (Hessian[0][0] * Hessian[1][1] - Hessian[0][1] * Hessian[1][0]) * Hessian[1][1];
+        Hessian_inverse[0][1] = 1 / (Hessian[0][0] * Hessian[1][1] - Hessian[0][1] * Hessian[1][0]) * -Hessian[0][1];
+        Hessian_inverse[1][0] = 1 / (Hessian[0][0] * Hessian[1][1] - Hessian[0][1] * Hessian[1][0]) * -Hessian[1][0];
+        Hessian_inverse[1][1] = 1 / (Hessian[0][0] * Hessian[1][1] - Hessian[0][1] * Hessian[1][0]) * Hessian[0][0];
+        d[0] = -(Hessian_inverse[0][0] * nabla[0] + Hessian_inverse[1][0] * nabla[1]);
+        d[1] = -(Hessian_inverse[0][1] * nabla[0] + Hessian_inverse[1][1] * nabla[1]);
+    }
+}
+
+void Hf(double *x, double *d)
+{
+    Hessian[0][0] = 2 * A[2][0] + 6 * A[3][0] * x[0] + 12 * A[4][0] * pow(x[0], 2);
+    Hessian[0][1] = A[1][1];
+    Hessian[1][0] = Hessian[0][1];
+    Hessian[1][1] = 2 * A[0][2];
 }
 
 //f2の式を用いている
