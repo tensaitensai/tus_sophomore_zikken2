@@ -9,10 +9,8 @@
 \共同実験者{}{}{}{}{}{}{}{}
 \表紙出力
 \section{実験の要旨}
-最急降下法とニュートン法といった汎用性の高いアルゴリズムを実装し,理解を深めるとともに
-非線形最適化問題への適応を通してアルゴリズムの特性を把握しておくことの重要性の理解を図る.
+
 \section{実験の目的}
-非線形最適化問題に対し,最急降下法を実装・適用を通し,アルゴリズムの特性を理解する.
 \section{実験の原理(理論)}
 \subsection{無制約最小化問題に対する基礎理論}
 無制約最小化問題とは,$n$変数関数$f:\boldsymbol{R}^n \rightarrow \boldsymbol{R}$に対して定義される以下の問題である.
@@ -24,15 +22,15 @@ $n$変数関数$f:\boldsymbol{R}^n \rightarrow \boldsymbol{R}$に対し勾配ベ
 定義されるベクトルと行列である.
 \begin{eqnarray}
     \nabla f(\boldsymbol{x})=\left(\begin{array}{r}
-        \frac{\partial f}{\partial x_1}\\
-         \vdots \\
-        \frac{\partial f}{\partial x_1}
-    \end{array}\right),
+            \frac{\partial f}{\partial x_1} \\
+            \vdots                          \\
+            \frac{\partial f}{\partial x_1}
+        \end{array}\right),
     \nabla f^2(\boldsymbol{x})=\left(\begin{array}{rrr}
-        \frac{\partial^2f}{\partial^2x_1}&\cdots&\frac{\partial^2f}{\partial x_1\partial x_n}\\
-         \vdots &\ddots & \vdots \\
-        \frac{\partial^2f}{\partial x_n\partial x_1}&\cdots&\frac{\partial^2f}{\partial^2x_n}   
-    \end{array}\right)\nonumber
+            \frac{\partial^2f}{\partial^2x_1}            & \cdots & \frac{\partial^2f}{\partial x_1\partial x_n} \\
+            \vdots                                       & \ddots & \vdots                                       \\
+            \frac{\partial^2f}{\partial x_n\partial x_1} & \cdots & \frac{\partial^2f}{\partial^2x_n}
+        \end{array}\right)\nonumber
 \end{eqnarray}
 勾配ベクトルとヘッセ行列はそれぞれ1変数関数$f(\boldsymbol{x})$の微分係数$f'(\boldsymbol{x})$と2階微分係数$f''(\boldsymbol{x})$を
 n変数関数に拡張したものである.ヘッセ行列は対称行列になることを注意する.勾配ベクトルとヘッセ行列は$f$のテイラー展開に現れる.具体的には,$x=a$の周りで2次の項まで求めると,以下のようになる.
@@ -49,32 +47,32 @@ n変数関数に拡張したものである.ヘッセ行列は対称行列にな
 一般に非線形最適問題において大域的最適解を求めることは難しく,多くの場合は同署的最適解を求めることを目指す.局所最適解においては以下の最適性条件が成り立つ.
 \begin{description}
     \item[定理(最適性の必要条件)] $\boldsymbol{x}^*\in \boldsymbol{R}^n$を無制約最小問題の極小的最適解として次が成り立つ.
-    \begin{itemize}
-        \item $f$が連続的微分可能$\Rightarrow \nabla f(\boldsymbol{x})^*=0$.
-        \item $f$が2回連続微分可能$\Rightarrow \nabla f(\boldsymbol{x})^*$は半正定値行列.
-    \end{itemize}
-    1次の必要条件を満たす$\boldsymbol{x}^*$を停留点という.
+          \begin{itemize}
+              \item $f$が連続的微分可能$\Rightarrow \nabla f(\boldsymbol{x})^*=0$.
+              \item $f$が2回連続微分可能$\Rightarrow \nabla f(\boldsymbol{x})^*$は半正定値行列.
+          \end{itemize}
+          1次の必要条件を満たす$\boldsymbol{x}^*$を停留点という.
     \item[定理(2次の十分条件)] 関数$f$が2回連続的微分可能とする.$\boldsymbol{x}^*\in \boldsymbol{R}^n$が以下の条件を満たすならば,$\boldsymbol{x}^*\in \boldsymbol{R}^n$
-    は無制約最小化問題の極小的最適解である.
-    \begin{itemize}
-        \item $\nabla f(\boldsymbol{x}^*)=0$
-        \item $\nabla^2f(\boldsymbol{x}^*)$が正定値行列
-    \end{itemize}
-    関数が凸性と呼ばれる「良い」性質を持つ場合には,実は,大域的最適解を求めることが比較的に容易になる.関数$f:\boldsymbol{R}^n\rightarrow \boldsymbol{R}$が異常の条件を満たすときは
-    $f$が凸関数である.
-    \begin{eqnarray}
-        f(\lambda\boldsymbol{x}+(1-\lambda)\boldsymbol{y})\leq \lambda f(\boldsymbol{x})+(1-\lambda)f(\boldsymbol{y})\ \ \forall \boldsymbol{x},\boldsymbol{y}\in \boldsymbol{R}^n,\forall \lambda\in(0,1)\nonumber
-    \end{eqnarray}
-    $f$が2回連続的微分可能であるとき,以下の事実が成り立つ.
-    \begin{center}
-        $f$が凸関数 \ \ $\Leftrightarrow\ \ \nabla^2f(\boldsymbol{x})$が半正定値行列\ \ $\forall \boldsymbol{x}\in \boldsymbol{R}^n$ 
-    \end{center}
-    さらに,凸関数は次の「局所最適性=大域的最適性」を満たす.
-    \begin{center}
-        $f$が凸関数の時,$\boldsymbol{x}$が$f$の局所的最適解$\rightarrow$ $\boldsymbol{x}^*$は$f$の大域的最適解
-    \end{center}
-    これにより,微分可能な凸関数に対しては,$\nabla f(\boldsymbol{x})=0$を満たす$\boldsymbol{x}$を求めれば,その$\boldsymbol{x}^*$は
-    最適解であることが保証される.凸関数はこのように重要なクラスである.
+          は無制約最小化問題の極小的最適解である.
+          \begin{itemize}
+              \item $\nabla f(\boldsymbol{x}^*)=0$
+              \item $\nabla^2f(\boldsymbol{x}^*)$が正定値行列
+          \end{itemize}
+          関数が凸性と呼ばれる「良い」性質を持つ場合には,実は,大域的最適解を求めることが比較的に容易になる.関数$f:\boldsymbol{R}^n\rightarrow \boldsymbol{R}$が異常の条件を満たすときは
+          $f$が凸関数である.
+          \begin{eqnarray}
+              f(\lambda\boldsymbol{x}+(1-\lambda)\boldsymbol{y})\leq \lambda f(\boldsymbol{x})+(1-\lambda)f(\boldsymbol{y})\ \ \forall \boldsymbol{x},\boldsymbol{y}\in \boldsymbol{R}^n,\forall \lambda\in(0,1)\nonumber
+          \end{eqnarray}
+          $f$が2回連続的微分可能であるとき,以下の事実が成り立つ.
+          \begin{center}
+              $f$が凸関数 \ \ $\Leftrightarrow\ \ \nabla^2f(\boldsymbol{x})$が半正定値行列\ \ $\forall \boldsymbol{x}\in \boldsymbol{R}^n$
+          \end{center}
+          さらに,凸関数は次の「局所最適性=大域的最適性」を満たす.
+          \begin{center}
+              $f$が凸関数の時,$\boldsymbol{x}$が$f$の局所的最適解$\rightarrow$ $\boldsymbol{x}^*$は$f$の大域的最適解
+          \end{center}
+          これにより,微分可能な凸関数に対しては,$\nabla f(\boldsymbol{x})=0$を満たす$\boldsymbol{x}$を求めれば,その$\boldsymbol{x}^*$は
+          最適解であることが保証される.凸関数はこのように重要なクラスである.
 \end{description}
 \subsubsection{反復法}
 適当な初期点$x_0\in \boldsymbol{R}^n$からスタートし,以下の更新式で次々と点$x_1,x_2,\cdots,$を生成するアルゴリズムを反復法という.
@@ -94,17 +92,17 @@ n変数関数に拡張したものである.ヘッセ行列は対称行列にな
     \item $x_{k+1}=x_k+\alpha_kd_k$,$k=k+1$として(2)に戻る.
 \end{enumerate}
 \begin{description}
-    \item[最急降下法の大域的収束性] 関数$f(\boldsymbol{x})$に関する仮定の下ではウルフ条件を用いた最急降下法は任意の初期店に対して以下の式が成り立つ. 
-    \begin{eqnarray}
-        \lim_{k\rightarrow \infty}||\nabla f(\boldsymbol{x}_k)||=0\nonumber
-    \end{eqnarray}
-    このように,初期店に依存せずに停留点に収束するのは最急降下法の強みであるがその一方で収束スピードが非常に遅い欠点を持つ. 
+    \item[最急降下法の大域的収束性] 関数$f(\boldsymbol{x})$に関する仮定の下ではウルフ条件を用いた最急降下法は任意の初期店に対して以下の式が成り立つ.
+          \begin{eqnarray}
+              \lim_{k\rightarrow \infty}||\nabla f(\boldsymbol{x}_k)||=0\nonumber
+          \end{eqnarray}
+          このように,初期店に依存せずに停留点に収束するのは最急降下法の強みであるがその一方で収束スピードが非常に遅い欠点を持つ. 
     \item[最急降下法の1次収束性] 最急降下法で生成される点列$\{\boldsymbol{x}_k\}$の収束先を$\boldsymbol{x}^*$とすると
-    以下の式が成り立つ$0<c<1$が存在する.
-    \begin{eqnarray}
-        ||\boldsymbol{x}_{k+1}-\boldsymbol{x}^*||\leq c||\boldsymbol{x}_{k}-\boldsymbol{x}^*||\nonumber
-    \end{eqnarray}
-    この式では一見,収束が遅いように見えないが$||\boldsymbol{x}_{k+1}-\boldsymbol{x}^*$が非常に微小なため急降下法が収束するまでに要する反復数は非常に多い.
+          以下の式が成り立つ$0<c<1$が存在する.
+          \begin{eqnarray}
+              ||\boldsymbol{x}_{k+1}-\boldsymbol{x}^*||\leq c||\boldsymbol{x}_{k}-\boldsymbol{x}^*||\nonumber
+          \end{eqnarray}
+          この式では一見,収束が遅いように見えないが$||\boldsymbol{x}_{k+1}-\boldsymbol{x}^*$が非常に微小なため急降下法が収束するまでに要する反復数は非常に多い.
 \end{description}
 \subsubsection{ニュートン法}
 ニュートン法は$f(\boldsymbol{x})$2次の項までのテイラー展開を最小化することを繰り返す方法である.以下のニュートン方程式を解くことで得られる.
@@ -120,36 +118,36 @@ n変数関数に拡張したものである.ヘッセ行列は対称行列にな
 \end{enumerate}
 \begin{description}
     \item[ニュートン法の局所的2次収束性] 初期点を$\boldsymbol{x}^*$の十分近くに点を取ると,ニュートン法で生成される点列$\{x_k\}$は収束し,
-    その収束先を$\boldsymbol{x}^*$とすると以下を満たす定数$c\geq 0$が存在する.  
-    \begin{eqnarray}
-        ||\boldsymbol{x}_{k+1}-\boldsymbol{x}^*||\leq c||\boldsymbol{x}_{k}-\boldsymbol{x}^*||^2\nonumber
-    \end{eqnarray}
-    1次収束と異なり,上の2次収束は非常に速い.一方で,初期店のとり方が悪ければニュートン法は収束しなかったり,局所最適解でない点に収束することもしばしばある.
+          その収束先を$\boldsymbol{x}^*$とすると以下を満たす定数$c\geq 0$が存在する.  
+          \begin{eqnarray}
+              ||\boldsymbol{x}_{k+1}-\boldsymbol{x}^*||\leq c||\boldsymbol{x}_{k}-\boldsymbol{x}^*||^2\nonumber
+          \end{eqnarray}
+          1次収束と異なり,上の2次収束は非常に速い.一方で,初期店のとり方が悪ければニュートン法は収束しなかったり,局所最適解でない点に収束することもしばしばある.
 \end{description}
 \section{実験課題}
 \begin{enumerate}
     \item 実験目的とアルゴリズムに関する数学的理論について概要を述べよ.
     \item 以下の2種類の2変数に対して最急降下法を実行するプログラムを完成させよ.
-    \begin{eqnarray}
-        f_1(x_1,x_2)&=&\frac{1}{2}
-        \left(\begin{array}{r}
-            x_1\\
-            x_2
-        \end{array}\right)^T\left(\begin{array}{rr}
-            p&q\\
-            q&r
-        \end{array}\right)\left(\begin{array}{r}
-            x_1\\
-            x_2
-        \end{array}\right)+\left(\begin{array}{r}
-            c_1\\
-            c_2
-        \end{array}\right)^T\left(\begin{array}{r}
-            x_1\\
-            x_2
-        \end{array}\right)+e^{(x_1-x_2)^2}\nonumber\\
-        f_2(x_1,x_2)&=&\sum^4_{i=0}\sum^2_{j=0}a_{ij}x^i_1x^j_2\nonumber
-    \end{eqnarray}
+          \begin{eqnarray}
+              f_1(x_1,x_2)&=&\frac{1}{2}
+              \left(\begin{array}{r}
+                      x_1 \\
+                      x_2
+                  \end{array}\right)^T\left(\begin{array}{rr}
+                      p & q \\
+                      q & r
+                  \end{array}\right)\left(\begin{array}{r}
+                      x_1 \\
+                      x_2
+                  \end{array}\right)+\left(\begin{array}{r}
+                      c_1 \\
+                      c_2
+                  \end{array}\right)^T\left(\begin{array}{r}
+                      x_1 \\
+                      x_2
+                  \end{array}\right)+e^{(x_1-x_2)^2}\nonumber\\
+              f_2(x_1,x_2)&=&\sum^4_{i=0}\sum^2_{j=0}a_{ij}x^i_1x^j_2\nonumber
+          \end{eqnarray}
     \item プログラムを動かしてふるまいを観察して考察せよ.
     \item 上の関数に対してニュートン法のプログラムを完成せよ
     \item プログラムを動かしてふるまいを考察せよ.
@@ -167,57 +165,57 @@ n変数関数に拡張したものである.ヘッセ行列は対称行列にな
     \begin{center}
         \begin{tabular}{|c|c|}
             \hline
-            回数&23\\
+            回数         & 23                  \\
             \hline
-            位置&(0.827955,0.232528)\\
+            位置         & (0.827955,0.232528) \\
             \hline
-            目的関数&-2.559041\\
+            目的関数     & -2.559041           \\
             \hline
-            勾配ベクトル&(0.000000,0.000000)\\
+            勾配ベクトル & (0.000000,0.000000) \\
             \hline
-            ノルム&0.000000\\
+            ノルム       & 0.000000            \\
             \hline
         \end{tabular}
         \caption{kadai1\_2.cの結果(data60.txt)}
         \begin{tabular}{|c|c|}
             \hline
-            回数&1000\\
+            回数         & 1000                     \\
             \hline
-            位置&(-15.351735,-287.442815)\\
+            位置         & (-15.351735,-287.442815) \\
             \hline
-            目的関数&-51647.764894\\
+            目的関数     & -51647.764894            \\
             \hline
-            勾配ベクトル&(27.717200,10.962134)\\
+            勾配ベクトル & (27.717200,10.962134)    \\
             \hline
-            ノルム&29.806234\\
+            ノルム       & 29.806234                \\
             \hline
         \end{tabular}
         \caption{kadai2.cの結果(rand\_exp1.txt)}
         \begin{tabular}{|c|c|}
-        \hline
-        回数&16\\
-        \hline
-        位置&(0.827955,0.232528)\\
-        \hline
-        目的関数&-2.559041\\
-        \hline
-        勾配ベクトル&(0.000000,-0.000000)\\
-        \hline
-        ノルム&0.000000\\
-        \hline
-    \end{tabular}
-    \caption{kadai2\_2.cの結果(rand\_quart2.txt)}
+            \hline
+            回数         & 16                   \\
+            \hline
+            位置         & (0.827955,0.232528)  \\
+            \hline
+            目的関数     & -2.559041            \\
+            \hline
+            勾配ベクトル & (0.000000,-0.000000) \\
+            \hline
+            ノルム       & 0.000000             \\
+            \hline
+        \end{tabular}
+        \caption{kadai2\_2.cの結果(rand\_quart2.txt)}
         \begin{tabular}{|c|c|}
             \hline
-            回数&7\\
+            回数         & 7                        \\
             \hline
-            位置&(-14.729993,-248.869871)\\
+            位置         & (-14.729993,-248.869871) \\
             \hline
-            目的関数&-31254.330351\\
+            目的関数     & -31254.330351            \\
             \hline
-            勾配ベクトル&(0.000000,0.000000)\\
+            勾配ベクトル & (0.000000,0.000000)      \\
             \hline
-            ノルム&0.000000\\
+            ノルム       & 0.000000                 \\
             \hline
         \end{tabular}
     \end{center}
@@ -267,10 +265,10 @@ n変数関数に拡張したものである.ヘッセ行列は対称行列にな
 さらにその仕組みを知ることができた.またこれらのことを通してアルゴリズムの特性を学ぶことができた.
 % 参考文献
 \begin{thebibliography}{99}
-\label{sannkoubunnkenn_chapter}
-\bibitem{rikadai}
-情報工学実験2,
-東京理科大学 工学部 情報工学科, 2020.
+    \label{sannkoubunnkenn_chapter}
+    \bibitem{rikadai}
+    情報工学実験2,
+    東京理科大学 工学部 情報工学科, 2020.
 \end{thebibliography}
 \clearpage
 % 付録

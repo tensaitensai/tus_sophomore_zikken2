@@ -1,0 +1,343 @@
+\documentclass[12pt]{jarticle}
+\usepackage{TUSIReport}
+\usepackage{otf}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage[dvipdfmx]{color}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{hhline}
+\usepackage{fancybox,ascmac}
+\usepackage{multirow}
+\usepackage{url}
+\usepackage{bm}
+\usepackage{listings,jlisting}
+\lstdefinestyle{log}{
+    frame={tblr},
+    basicstyle={\footnotesize},
+    tabsize={4},
+}
+\lstdefinestyle{lsthtml}{
+    language={html},
+    backgroundcolor={\color[gray]{.85}},
+    basicstyle={\small},
+    identifierstyle={\small},
+    commentstyle={\small\ttfamily \color[rgb]{0,0.5,0}},
+    keywordstyle={\small\bfseries \color[rgb]{1,0,0}},
+    ndkeywordstyle={\small},
+    stringstyle={\small\ttfamily \color[rgb]{0,0,1}},
+    frame={tb},
+    breaklines=true,
+    columns=[l]{fullflexible},
+    numbers=left,
+    xrightmargin=0zw,
+    xleftmargin=3zw,
+    numberstyle={\scriptsize},
+    stepnumber=1,
+    numbersep=1zw,
+    morecomment=[l]{//}
+}
+\lstdefinestyle{lstcpp}{
+    language={C++},
+    backgroundcolor={\color[gray]{.85}},
+    basicstyle={\small},
+    identifierstyle={\small},
+    commentstyle={\small\ttfamily \color[rgb]{0,0.5,0}},
+    keywordstyle={\small\bfseries \color[rgb]{1,0,0}},
+    ndkeywordstyle={\small},
+    stringstyle={\small\ttfamily \color[rgb]{0,0,1}},
+    frame={tb},
+    breaklines=true,
+    columns=[l]{fullflexible},
+    numbers=left,
+    xrightmargin=0zw,
+    xleftmargin=3zw,
+    numberstyle={\scriptsize},
+    stepnumber=1,
+    numbersep=1zw,
+    morecomment=[l]{//}
+}
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 表紙を出力する場合は，\提出者と\共同実験者をいれる
+% \提出者{科目名}{課題名}{提出年}{提出月}{提出日}{学籍番号}{氏名}
+% \共同実験者{一人目}{二人目}{..}{..}{..}{..}{..}{八人目}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\提出者{情報工学実験2}{実験テーマ1 数理計画法}{2020}{10}{26}{4619055}{辰川力駆}
+\共同実験者{}{}{}{}{}{}{}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 表紙を出力しない場合は，以下の「\表紙出力」をコメントアウトする
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\表紙出力
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 以下はレポート本体である．別途 TeXファイルを作成し \input 使っても良い
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{実験の要旨}
+実験を通して、
+最急降下法とニュートン法についての理解を深めるとともに、
+二次元平面にプロットするなどをして議論をする。
+
+\section{実験の目的}
+非線形最適化問題に対し、
+最急降下法とニュートン法を実装・適用を通し、
+アルゴリズムの特性を理解する。
+
+\section{実験の原理(理論)}
+\subsection{無制約最小化問題に対する基礎理論}
+無制約最小化問題とは、
+$n$変数関数$f:\mathbb{R}^n \rightarrow \mathbb{R}$に対して
+定義される以下の問題である。
+\begin{eqnarray}
+    \text{Minimize}\ f(\boldsymbol{x})\ \text{subject}\ \text{to}\ \boldsymbol{x}=(x_1,x_2,\cdots,x_n)^T \in \mathbb{R}^n\nonumber
+\end{eqnarray}
+
+\subsubsection{諸定義}
+$n$変数関数$f:\mathbb{R}^n \rightarrow \mathbb{R}$に対し、
+勾配ベクトル$\nabla f(\boldsymbol{x})$と
+ヘッセ行列$\nabla^2f(\boldsymbol{x})$はそれぞれ以下のように
+定義されるベクトルと行列である。
+\begin{eqnarray}
+    \nabla f(\boldsymbol{x})=\left(\begin{array}{c}
+            \frac{\partial f}{\partial x_1} \\
+            \vdots                          \\
+            \frac{\partial f}{\partial x_n}
+        \end{array}\right),\
+    \nabla^2f(\boldsymbol{x})=\left(\begin{array}{ccc}
+            \frac{\partial^2f}{\partial^2x_1}            & \cdots & \frac{\partial^2f}{\partial x_1\partial x_n} \\
+            \vdots                                       & \ddots & \vdots                                       \\
+            \frac{\partial^2f}{\partial x_n\partial x_1} & \cdots & \frac{\partial^2f}{\partial^2x_n}
+        \end{array}\right)\nonumber
+\end{eqnarray}
+勾配ベクトルとヘッセ行列はそれぞれ1変数関数$f(\boldsymbol{x})$の
+微分係数$f'(\boldsymbol{x})$と2階微分係数$f''(\boldsymbol{x})$を
+$n$変数関数に拡張したものである。
+ヘッセ行列は対称行列になることに注意する。
+勾配ベクトルとヘッセ行列は$f$のテイラー展開に現れる。
+具体的には、$\boldsymbol{x}=\boldsymbol{a}$の周りで2次の項まで求めると、
+以下のようになる。
+\begin{eqnarray}
+    f(\boldsymbol{a}+\boldsymbol{d})=f(\boldsymbol{a})+\nabla f(\boldsymbol{a})^T\boldsymbol{d}+\frac{1}{2}\boldsymbol{d}^T\nabla^2f(\boldsymbol{a})\boldsymbol{d}+(残差)\nonumber
+\end{eqnarray}
+また、$n$次実正方行列$X$に対し、
+\begin{itemize}
+    \item $X$が半正定値とは、$X^T=X$と、$\forall\boldsymbol{d}\in\mathbb{R}^n $,\ $\boldsymbol{d}^TX\boldsymbol{d}\geq 0$が成り立つことを言い、
+    \item $X$が正定値とは、$X^T=X$と、$\forall\boldsymbol{d}\in\mathbb{R}^n \backslash \{\boldsymbol{0}\}$,\ $\boldsymbol{d}^TX\boldsymbol{d}> 0$が成り立つことを言う。
+\end{itemize}
+さらに、$n$次実対称行列$X$に対し、
+「$X$が半正定値(正定値)$\Leftrightarrow$ $X$の固有値がすべて正」が成り立つ。
+
+\clearpage
+\subsubsection{最適性条件}
+一般に非線形最適問題において大域的最適解を求めることは難しく,多くの場合は同署的最適解を求めることを目指す.局所最適解においては以下の最適性条件が成り立つ.
+\begin{description}
+    \item[定理(最適性の必要条件)] $\boldsymbol{x}^*\in \mathbb{R}^n $を無制約最小問題の極小的最適解として次が成り立つ.
+          \begin{itemize}
+              \item $f$が連続的微分可能$\Rightarrow \nabla f(\boldsymbol{x})^*=0$.
+              \item $f$が2回連続微分可能$\Rightarrow \nabla f(\boldsymbol{x})^*$は半正定値行列.
+          \end{itemize}
+          1次の必要条件を満たす$\boldsymbol{x}^*$を停留点という.
+    \item[定理(2次の十分条件)] 関数$f$が2回連続的微分可能とする.$\boldsymbol{x}^*\in \mathbb{R}^n$が以下の条件を満たすならば,$\boldsymbol{x}^*\in \boldsymbol{R}^n$
+          は無制約最小化問題の極小的最適解である.
+          \begin{itemize}
+              \item $\nabla f(\boldsymbol{x}^*)=0$
+              \item $\nabla^2f(\boldsymbol{x}^*)$が正定値行列
+          \end{itemize}
+          関数が凸性と呼ばれる「良い」性質を持つ場合には,実は,大域的最適解を求めることが比較的に容易になる.関数$f:\mathbb{R}^n \rightarrow \boldsymbol{R}$が異常の条件を満たすときは
+          $f$が凸関数である.
+          \begin{eqnarray}
+              f(\lambda\boldsymbol{x}+(1-\lambda)\boldsymbol{y})\leq \lambda f(\boldsymbol{x})+(1-\lambda)f(\boldsymbol{y})\ \ \forall \boldsymbol{x},\boldsymbol{y}\in \boldsymbol{R}^n,\forall \lambda\in(0,1)\nonumber
+          \end{eqnarray}
+          $f$が2回連続的微分可能であるとき,以下の事実が成り立つ.
+          \begin{center}
+              $f$が凸関数 \ \ $\Leftrightarrow\ \ \nabla^2f(\boldsymbol{x})$が半正定値行列\ \ $\forall \boldsymbol{x}\in \boldsymbol{R}^n$
+          \end{center}
+          さらに,凸関数は次の「局所最適性=大域的最適性」を満たす.
+          \begin{center}
+              $f$が凸関数の時,$\boldsymbol{x}$が$f$の局所的最適解$\rightarrow$ $\boldsymbol{x}^*$は$f$の大域的最適解
+          \end{center}
+          これにより,微分可能な凸関数に対しては,$\nabla f(\boldsymbol{x})=0$を満たす$\boldsymbol{x}$を求めれば,その$\boldsymbol{x}^*$は
+          最適解であることが保証される.凸関数はこのように重要なクラスである.
+\end{description}
+\subsubsection{反復法}
+適当な初期点$x_0\in \boldsymbol{R}^n$からスタートし,以下の更新式で次々と点$x_1,x_2,\cdots,$を生成するアルゴリズムを反復法という.
+\begin{eqnarray}
+    x_{k+1}=x_k+\alpha_kd_k\nonumber
+\end{eqnarray}
+この式における$d_k$を探索方向,$\alpha_k$をステップ幅という.\\
+\par 探索方向としては降下方向になっているものを用いるのが一般的である.$\nabla f(\boldsymbol{x})\neq 0$であれば,$-\nabla f(\boldsymbol{x})$
+は自明な降下方向である.これを最急降下方向という.
+\subsubsection{最急降下法}
+最急降下法とは,$x_k$における最急降下方向を常に用いる方法である.手順は以下の通り.
+\begin{enumerate}
+    \item 初期点を選び,$k=0$とする.$\epsilon=10^{-8}$とする.
+    \item $||\nabla f(\boldsymbol{x_k})||<\epsilon$が満たされていれば終了する.
+    \item 探索方向を$d_k=-\nabla f(\boldsymbol{x_k})$とする.
+    \item アルミホ条件による直線探索を用いてステップ幅$\alpha$を定める.
+    \item $x_{k+1}=x_k+\alpha_kd_k$,$k=k+1$として(2)に戻る.
+\end{enumerate}
+\begin{description}
+    \item[最急降下法の大域的収束性] 関数$f(\boldsymbol{x})$に関する仮定の下ではウルフ条件を用いた最急降下法は任意の初期店に対して以下の式が成り立つ.
+          \begin{eqnarray}
+              \lim_{k\rightarrow \infty}||\nabla f(\boldsymbol{x}_k)||=0\nonumber
+          \end{eqnarray}
+          このように,初期店に依存せずに停留点に収束するのは最急降下法の強みであるがその一方で収束スピードが非常に遅い欠点を持つ.
+    \item[最急降下法の1次収束性] 最急降下法で生成される点列$\{\boldsymbol{x}_k\}$の収束先を$\boldsymbol{x}^*$とすると
+          以下の式が成り立つ$0<c<1$が存在する.
+          \begin{eqnarray}
+              ||\boldsymbol{x}_{k+1}-\boldsymbol{x}^*||\leq c||\boldsymbol{x}_{k}-\boldsymbol{x}^*||\nonumber
+          \end{eqnarray}
+          この式では一見,収束が遅いように見えないが$||\boldsymbol{x}_{k+1}-\boldsymbol{x}^*$が非常に微小なため急降下法が収束するまでに要する反復数は非常に多い.
+\end{description}
+\subsubsection{ニュートン法}
+ニュートン法は$f(\boldsymbol{x})$2次の項までのテイラー展開を最小化することを繰り返す方法である.以下のニュートン方程式を解くことで得られる.
+\begin{eqnarray}
+    \nabla^2f(\boldsymbol{x}_k)d=-\nabla f(\boldsymbol{x}_k)\nonumber
+\end{eqnarray}
+手順は以下の通り.
+\begin{enumerate}
+    \item 初期点を選び,$k=0$とする.$\epsilon=10^{-8}$とする.
+    \item $||\nabla f(\boldsymbol{x_k})||<\epsilon$が満たされていれば終了する.
+    \item ニュートン方程式を解いて$d_k$を求める.
+    \item $x_{k+1}=x_k+\alpha_kd_k$,$k=k+1$として(2)に戻る.
+\end{enumerate}
+\begin{description}
+    \item[ニュートン法の局所的2次収束性] 初期点を$\boldsymbol{x}^*$の十分近くに点を取ると,ニュートン法で生成される点列$\{x_k\}$は収束し,
+          その収束先を$\boldsymbol{x}^*$とすると以下を満たす定数$c\geq 0$が存在する.
+          \begin{eqnarray}
+              ||\boldsymbol{x}_{k+1}-\boldsymbol{x}^*||\leq c||\boldsymbol{x}_{k}-\boldsymbol{x}^*||^2\nonumber
+          \end{eqnarray}
+          1次収束と異なり,上の2次収束は非常に速い.一方で,初期店のとり方が悪ければニュートン法は収束しなかったり,局所最適解でない点に収束することもしばしばある.
+\end{description}
+
+\clearpage
+
+\section{実験方法}
+次の各項目に取り組む。
+\begin{itemize}
+    \item[(1)] 最適化問題とみなせる現実問題の例を挙げる。
+          ただし、目的関数、制約条件、決定変数を大雑把に述べる程度で良いものとする。
+    \item[(2)]問1から問6に答えよ。
+          \begin{itemize}
+              \item[問1.] 例2の問題を定式化する。
+              \item[問2.] 例2の定数に具体的な数値を適当に代入し、
+                    そのときの最適解と最適値を求める。
+                    ただし、$(x_1,x_2)$-平面を描いて制約条件を満たす解の領域を図示すること。
+              \item[問3.] 例3の問題の最適解と最適値を求める。
+              \item[問4.] 例3の定式化に以下の2つの制約条件を追加したいとする。
+                    これらがどのように数式で表現できるかを述べ、その妥当性を説明する。
+                    \begin{center}
+                        \textbf{A}. グミとガムの両方は買わない\\
+                        \textbf{B}. ポテチを買うならガムも買う\\
+                    \end{center}
+              \item[問5.] (例4の問題の定式化の準備)。
+                    決定変数$x$と$y$を考える。
+                    $x$はバイナリ変数、$y$は連続変数とする。
+                    $x=1$のときに$y$は$a$以上$b$以下の値をとることができ、
+                    $x=0$のときには$y=0$でないといけないようにしたい。
+                    この制約条件を数式で表現し、その妥当性を説明する。
+              \item[問6.] 例4の問題を定式化する。
+          \end{itemize}
+
+    \item[(3)]最適化問題とみなせる現実問題の例を挙げ、実際に定式化する。
+          (1)の問題と同じでも良い。
+\end{itemize}
+
+\section{実験結果・検討・考察}
+
+
+\section{まとめ}
+最急降下法とニュートン法をC言語で実装した。
+また、それらの適用を通し、
+アルゴリズムの特性を理解することができた。
+
+\clearpage
+
+% 参考文献
+\begin{thebibliography}{99}
+    \label{sannkoubunnkenn_chapter}
+    \bibitem[1]{rikadai}東京理科大学工学部情報工学科 情報工学実験2 2020年度
+    東京理科大学工学部情報工学科出版
+
+    \bibitem[2]{toukei}
+    関数グラフ - GeoGebra
+
+    \url{https://www.geogebra.org/graphing?lang=ja}
+
+    最終閲覧日2020/10/29
+
+\end{thebibliography}
+
+
+\clearpage
+
+% 付録
+\appendix
+\section{付録}
+\begin{lstlisting}[style = lstcpp,caption=saiteki.cpp]
+    #include <bits/stdc++.h>
+    using namespace std;
+    template <class T>
+    inline bool chmax(T &a, T b)
+    {
+        if (a < b)
+        {
+            a = b;
+            return 1;
+        }
+        return 0;
+    }
+    template <class T>
+    inline bool chmin(T &a, T b)
+    {
+        if (a > b)
+        {
+            a = b;
+            return 1;
+        }
+        return 0;
+    }
+    
+    using pll = pair<long long, long long>;
+    pll sub(long long h, long long w)
+    {
+        if (h % 2 == 0 || w % 2 == 0)
+            return {h * w / 2, h * w / 2};
+        if (h > w)
+            swap(h, w);
+        return {h * (w + 1) / 2, h * (w - 1) / 2};
+    }
+    
+    int main()
+    {
+        long long H, W;
+        cin >> H >> W;
+        long long res = H * W;
+    
+        for (long long h = 1; h < H; ++h)
+        {
+            vector<long long> a(3);
+            a[0] = h * W;
+            auto p = sub(H - h, W);
+            a[1] = p.first, a[2] = p.second;
+            sort(a.begin(), a.end());
+            chmin(res, a.back() - a[0]);
+        }
+        for (long long w = 1; w < W; ++w)
+        {
+            vector<long long> a(3);
+            a[0] = H * w;
+            auto p = sub(H, W - w);
+            a[1] = p.first, a[2] = p.second;
+            sort(a.begin(), a.end());
+            chmin(res, a.back() - a[0]);
+        }
+        cout << res << endl;
+    }
+\end{lstlisting}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
