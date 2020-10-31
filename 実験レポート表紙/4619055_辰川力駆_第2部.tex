@@ -349,12 +349,155 @@ $\boldsymbol{d}$を探索方向とする。
 \subsection*{(1)}
 上記(目的、原理)で述べた。
 \subsection*{(2)}
+それぞれの関数に対して作成したソースコード2つを付録に載せた。
+$f_1$のソースコードも$f_2$のソースコードも仕組みは同じなのでソースコード1(4619055\_辰川力駆\_SD\_1.c)
+に対しての説明をする。
+
+まず、27行目から48行目でファイルを読み取り、最急降下法を使う行列を受け取っている。
+そして、確認のために50行目から71行目で出力している。
+次に、メインの最急降下法(77行目から114行目)について説明する。
+79行目から83行目までは$\nabla f(\boldsymbol{x}_k)$と$\boldsymbol{d}_k$を求めている。
+その後、ノルム、関数値を求めた後に、アルミホ条件による直線探索を用いてステップ幅を定めている。
+アルミホ条件によるステップ幅の決定は116行目から142行目の関数で求めている。
+
+最後に$\boldsymbol{x}_k$を更新したあと、101行目から108行目で終了条件が満たされていれば終了する。
+満たされていなければさらに実行というようにしている。
+$||\nabla f(\boldsymbol{x_k})||<\epsilon$という条件だけでは、
+最急降下法はたくさんの回数を要するため時間がかかってしまう可能性があるので
+反復回数が1000回を越えたら停止するように工夫している。
+
+出力部分に関しては、反復回数、現在位置、目的関数、勾配ベクトル、ノルムを表示するようにした。
+表示する頻度は多すぎるといけないので、0,1,2,3,4,5,10,20,30,40,50,60,70,80,90,100,200,300,
+400,500,600,700,800,900,1000
+とするように工夫をした。
 
 \subsection*{(3)}
 
+学籍番号は4619055なのでseed値を55としてデータを発生させた。
+実験に用いるデータは下記である。なお、図2の一番右のデータはdata55.txtのデータである。
+\begin{figure}[h]
+    \begin{minipage}{0.3\hsize}
+        \begin{center}
+            \includegraphics[scale=0.35]{kadai1_1data1.png}
+        \end{center}
+    \end{minipage}
+    \begin{minipage}{0.3\hsize}
+        \begin{center}
+            \includegraphics[scale=0.35]{kadai1_1data2.png}
+        \end{center}
+    \end{minipage}
+    \begin{minipage}{0.3\hsize}
+        \begin{center}
+            \includegraphics[scale=0.35]{kadai1_1data3.png}
+        \end{center}
+    \end{minipage}
+    \caption{$f_1$で用いる実験データ}
+\end{figure}
+
+\begin{figure}[h]
+    \begin{minipage}{0.3\hsize}
+        \begin{center}
+            \includegraphics[scale=0.35]{kadai1_2data1.png}
+        \end{center}
+    \end{minipage}
+    \begin{minipage}{0.3\hsize}
+        \begin{center}
+            \includegraphics[scale=0.35]{kadai1_2data2.png}
+        \end{center}
+    \end{minipage}
+    \begin{minipage}{0.3\hsize}
+        \begin{center}
+            \includegraphics[scale=0.4]{kadai1_2data3.png}
+        \end{center}
+    \end{minipage}
+    \caption{$f_2$で用いる実験データ}
+\end{figure}
+
+実行結果は以下のようになった。
+\begin{figure}[h]
+    \begin{minipage}{0.3\hsize}
+        \begin{center}
+            \includegraphics[scale=0.35]{kadai1_2data1.png}
+        \end{center}
+    \end{minipage}
+    \begin{minipage}{0.3\hsize}
+        \begin{center}
+            \includegraphics[scale=0.35]{kadai1_2data2.png}
+        \end{center}
+    \end{minipage}
+    \begin{minipage}{0.3\hsize}
+        \begin{center}
+            \includegraphics[scale=0.4]{kadai1_2data3.png}
+        \end{center}
+    \end{minipage}
+    \caption{$f_1$,\ data set 1,\ $\boldsymbol{x}_0$の値1行目の結果}
+\end{figure}
+\begin{figure}[h]
+    \begin{minipage}{0.3\hsize}
+        \begin{center}
+            \includegraphics[scale=0.35]{kadai1_2data1.png}
+        \end{center}
+    \end{minipage}
+    \begin{minipage}{0.3\hsize}
+        \begin{center}
+            \includegraphics[scale=0.35]{kadai1_2data2.png}
+        \end{center}
+    \end{minipage}
+    \begin{minipage}{0.3\hsize}
+        \begin{center}
+            \includegraphics[scale=0.4]{kadai1_2data3.png}
+        \end{center}
+    \end{minipage}
+    \caption{$f_1$,\ data set 1,\ $\boldsymbol{x}_0$の値2行目の結果}
+\end{figure}
+\begin{figure}[h]
+    \begin{minipage}{0.3\hsize}
+        \begin{center}
+            \includegraphics[scale=0.35]{kadai1_2data1.png}
+        \end{center}
+    \end{minipage}
+    \begin{minipage}{0.3\hsize}
+        \begin{center}
+            \includegraphics[scale=0.35]{kadai1_2data2.png}
+        \end{center}
+    \end{minipage}
+    \begin{minipage}{0.3\hsize}
+        \begin{center}
+            \includegraphics[scale=0.4]{kadai1_2data3.png}
+        \end{center}
+    \end{minipage}
+    \caption{$f_1$,\ data set 1,\ $\boldsymbol{x}_0$の値3行目の結果}
+\end{figure}
+
+\clearpage
 \subsection*{(4)}
+それぞれの関数に対して作成したソースコード2つを付録に載せた。
+$f_1$のソースコードも$f_2$のソースコードも仕組みは同じなのでソースコード3(4619055\_辰川力駆\_newton\_1.c)
+に対しての説明をする。
+
+まず、29行目から50行目でファイルを読み取り、ニュートン法を使う行列を受け取っている。
+そして、確認のために52行目から73行目で出力している。
+次に、メインの最急降下法(79行目から111行目)について説明する。
+81,82行目では$\nabla f(\boldsymbol{x}_k)$を求めている。
+その後、ノルム、探索方向$\boldsymbol{d}_k$、関数値を求めている。
+探索方向はニュートン法を使っている。ニュートン法は関数化している。
+ニュートン法では、まずヘッセ行列$\nabla^2 f(\boldsymbol{x_k})$を求めて、
+正則でなければ、$\boldsymbol{d}=\text{inf}$としている。
+正則であればヘッセ行列の逆行列を求めて、$\boldsymbol{d}$を計算している。
+
+最後に$\boldsymbol{x}_k$を更新したあと、98行目から110行目で終了条件が満たされていれば終了する。
+満たされていなければさらに実行というようにしている。
+$||\nabla f(\boldsymbol{x_k})||<\epsilon$という停止条件と
+反復回数が500回を超えるという停止条件以外に
+$\nabla^2 f(\boldsymbol{x_k})$が非正則なら停止するようにしている。
+
+出力部分に関しては最急降下法と同様に、反復回数、現在位置、目的関数、勾配ベクトル、ノルムを表示するようにした。
+表示する頻度は多すぎるといけないので、0,1,2,3,4,5,10,20,30,40,50,60,70,
+80,90,100,200,300,400,500,600,700,800,900,1000
+とするように工夫をした。
 
 \subsection*{(5)}
+ニュートン法は非正則になったら終了しないといけないのでつらい
 
 \section{まとめ}
 最急降下法とニュートン法をC言語で実装した。
@@ -384,68 +527,593 @@ $\boldsymbol{d}$を探索方向とする。
 % 付録
 \appendix
 \section{付録}
-\begin{lstlisting}[style = lstcpp,caption=saiteki.cpp]
-    #include <bits/stdc++.h>
-    using namespace std;
-    template <class T>
-    inline bool chmax(T &a, T b)
-    {
-        if (a < b)
-        {
-            a = b;
-            return 1;
-        }
-        return 0;
-    }
-    template <class T>
-    inline bool chmin(T &a, T b)
-    {
-        if (a > b)
-        {
-            a = b;
-            return 1;
-        }
-        return 0;
-    }
+\begin{lstlisting}[style = lstcpp,caption=4619055\_辰川力駆\_SD\_1.c]
+    //4619055 辰川力駆
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <string.h>
+    #include <math.h>
+    #define N 1000
+    #define res 0.00000001 ///停止条件
     
-    using pll = pair<long long, long long>;
-    pll sub(long long h, long long w)
-    {
-        if (h % 2 == 0 || w % 2 == 0)
-            return {h * w / 2, h * w / 2};
-        if (h > w)
-            swap(h, w);
-        return {h * (w + 1) / 2, h * (w - 1) / 2};
-    }
+    double func(double *x);                             ///f1の式を用いている
+    double Armijo(double *x, double *d, double *nabla); //Armijo
+    
+    double Q[2][2]; //Qのデータを保存
+    double c[2];    //cのデータを保存
     
     int main()
     {
-        long long H, W;
-        cin >> H >> W;
-        long long res = H * W;
+        char fname[128];
+        double x[2];
+        double p, q, r;
+        double d[2], norm;
+        double nabla[2];
+        double f;
+        FILE *fp;
+        int i, j, k;
+        double alpha;
     
-        for (long long h = 1; h < H; ++h)
+        printf("input filename:");
+        fgets(fname, sizeof(fname), stdin);
+        fname[strlen(fname) - 1] = '\0';
+        fflush(stdin);
+        fp = fopen(fname, "r");
+    
+        for (i = 0; i < 2; i++)
         {
-            vector<long long> a(3);
-            a[0] = h * W;
-            auto p = sub(H - h, W);
-            a[1] = p.first, a[2] = p.second;
-            sort(a.begin(), a.end());
-            chmin(res, a.back() - a[0]);
+            for (j = 0; j < 2; j++)
+            {
+                fscanf(fp, "%lf", &Q[i][j]);
+            }
         }
-        for (long long w = 1; w < W; ++w)
+        for (i = 0; i < 2; i++)
         {
-            vector<long long> a(3);
-            a[0] = H * w;
-            auto p = sub(H, W - w);
-            a[1] = p.first, a[2] = p.second;
-            sort(a.begin(), a.end());
-            chmin(res, a.back() - a[0]);
+            fscanf(fp, "%lf", &c[i]);
         }
-        cout << res << endl;
+        for (i = 0; i < 2; i++)
+        {
+            fscanf(fp, "%lf", &x[i]);
+        }
+        fclose(fp);
+    
+        printf("Q=\n");
+        for (i = 0; i < 2; i++)
+        {
+            for (j = 0; j < 2; j++)
+            {
+                printf("%4.lf", Q[i][j]);
+            }
+            printf("\n");
+        }
+        printf("C=\n");
+        for (i = 0; i < 2; i++)
+        {
+            printf("%4.lf", c[i]);
+        }
+        printf("\n");
+        printf("x=\n");
+        for (i = 0; i < 2; i++)
+        {
+            printf("%4.lf", x[i]);
+        }
+        printf("\n");
+        printf("-----\n");
+    
+        p = Q[0][0];
+        q = Q[0][1];
+        r = Q[1][1];
+        k = 0;
+        while (1)
+        {
+            nabla[0] = p * x[0] + q * x[1] + c[0] + 2 * (x[0] - x[1]) * exp((x[0] - x[1]) * (x[0] - x[1]));
+            nabla[1] = q * x[0] + r * x[1] + c[1] - 2 * (x[0] - x[1]) * exp((x[0] - x[1]) * (x[0] - x[1]));
+    
+            d[0] = -nabla[0];
+            d[1] = -nabla[1];
+    
+            norm = sqrt(nabla[0] * nabla[0] + nabla[1] * nabla[1]); ///ノルムを計算
+    
+            f = func(x);
+            alpha = Armijo(x, d, nabla);
+    
+            if (k <= 5 || (k <= 100 && k % 10 == 0) || k % 100 == 0) //5回目までと10n回目,100n回目(n=1,2,3,...10)を表示
+            {
+                printf("%d回目\n", k);
+                printf("現在位置=(%.8lf,%.8lf)\n目的関数=%.8lf\n勾配ベクトル=(%.8lf,%.8lf)\nノルム=%.8lf\n", x[0], x[1], f, nabla[0], nabla[1], norm);
+                printf("-----\n");
+            }
+    
+            x[0] = x[0] + alpha * d[0];
+            x[1] = x[1] + alpha * d[1];
+            k++;
+    
+            if (norm < res) ///nablaのノルムが10^{-8}を越えていたら停止
+            {
+                break;
+            }
+            if (k > N) ///反復回数が1000回越えたら停止
+            {
+                break;
+            }
+        }
+    
+        printf("--結果--\n");
+        printf("%d回\n現在位置=(%.8lf,%.8lf)\n目的関数=%.8lf\n勾配ベクトル=(%.8lf,%.8lf)\nノルム=%.8lf\n", k - 1, x[0], x[1], f, nabla[0], nabla[1], norm);
+        return 0;
+    }
+    
+    double Armijo(double *x, double *d, double *nabla)
+    {
+        double alpha = 1.0;
+        double xi = 0.1;  ///今回の課題条件
+        double tau = 0.5; ///今回の課題条件
+        double fx, fy;
+        double y[2];
+    
+        ///f(x_k)を求める
+        fx = func(x);
+    
+        while (1)
+        {
+            ///新しいalphaに対してのfyを求める
+            y[0] = x[0] + alpha * d[0];
+            y[1] = x[1] + alpha * d[1];
+            fy = func(y);
+    
+            if (fy <= fx + xi * (nabla[0] * d[0] + nabla[1] * d[1]) * alpha) //Armijo条件
+            {
+                break;
+            }
+    
+            alpha = tau * alpha; //alphaの更新
+        }
+        return alpha;
+    }
+    
+    // f1の式を用いている
+    double func(double *x)
+    {
+        double p, q, r;
+        p = Q[0][0];
+        q = Q[0][1];
+        r = Q[1][1];
+        return 0.5 * (p * x[0] * x[0] + 2 * q * x[0] * x[1] + r * x[1] * x[1]) + c[0] * x[0] + c[1] * x[1] + exp((x[0] - x[1]) * (x[0] - x[1]));
     }
 \end{lstlisting}
 
+\begin{lstlisting}[style = lstcpp,caption=4619055\_辰川力駆\_SD\_2.c]
+    //4619055 辰川力駆
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <string.h>
+    #include <math.h>
+    #define N 1000
+    #define res 0.00000001 ///停止条件
+    
+    double func(double *x);                             ///f2の式を用いている
+    double Armijo(double *x, double *d, double *nabla); //Armijo
+    
+    double A[5][3]; //Aのデータを保存
+    
+    int main()
+    {
+        char fname[128];
+        double x[2];
+        double d[2], norm;
+        double nabla[2];
+        double f;
+        FILE *fp;
+        int i, j, k;
+        double alpha;
+    
+        printf("input filename:");
+        fgets(fname, sizeof(fname), stdin);
+        fname[strlen(fname) - 1] = '\0';
+        fflush(stdin);
+        fp = fopen(fname, "r");
+    
+        for (i = 0; i < 5; i++)
+        {
+            for (j = 0; j < 3; j++)
+            {
+                fscanf(fp, "%lf", &A[i][j]);
+            }
+        }
+        for (i = 0; i < 2; i++)
+        {
+            fscanf(fp, "%lf", &x[i]);
+        }
+        fclose(fp);
+    
+        printf("A=\n");
+        for (i = 0; i < 5; i++)
+        {
+            for (j = 0; j < 3; j++)
+            {
+                printf("%4.lf", A[i][j]);
+            }
+            printf("\n");
+        }
+        printf("x=\n");
+        for (i = 0; i < 2; i++)
+        {
+            printf("%4.lf", x[i]);
+        }
+        printf("\n");
+        printf("-----\n");
+    
+        k = 0;
+        while (1)
+        {
+            nabla[0] = A[1][0] + A[1][1] * x[1] + 2 * A[2][0] * x[0] + 3 * A[3][0] * pow(x[0], 2) + 4 * A[4][0] * pow(x[0], 3);
+            nabla[1] = A[0][1] + 2 * A[0][2] * x[1] + A[1][1] * x[0];
+    
+            d[0] = -nabla[0];
+            d[1] = -nabla[1];
+    
+            norm = sqrt(nabla[0] * nabla[0] + nabla[1] * nabla[1]); ///ノルムを計算
+    
+            f = func(x);
+            alpha = Armijo(x, d, nabla);
+    
+            if (k <= 5 || (k <= 100 && k % 10 == 0) || k % 100 == 0) //5回目までと10n回目,100n回目(n=1,2,3,...10)を表示
+            {
+                printf("%d回目\n", k);
+                printf("現在位置=(%.8lf,%.8lf)\n目的関数=%.8lf\n勾配ベクトル=(%.8lf,%.8lf)\nノルム=%.8lf\n", x[0], x[1], f, nabla[0], nabla[1], norm);
+                printf("-----\n");
+            }
+    
+            x[0] = x[0] + alpha * d[0];
+            x[1] = x[1] + alpha * d[1];
+            k++;
+    
+            if (norm < res) ///nablaのノルムが10^{-8}を越えていたら停止
+            {
+                break;
+            }
+            if (k > N) ///反復回数が1000回越えたら停止
+            {
+                break;
+            }
+        }
+    
+        printf("--結果--\n");
+        printf("%d回\n現在位置=(%.8lf,%.8lf)\n目的関数=%.8lf\n勾配ベクトル=(%.8lf,%.8lf)\nノルム=%.8lf\n", k - 1, x[0], x[1], f, nabla[0], nabla[1], norm);
+        return 0;
+    }
+    
+    double Armijo(double *x, double *d, double *nabla)
+    {
+        double alpha = 1.0;
+        double xi = 0.1;  ///今回の課題条件
+        double tau = 0.5; ///今回の課題条件
+        double fx, fy;
+        double y[2];
+    
+        ///f(x_k)を求める
+        fx = func(x);
+    
+        while (1)
+        {
+            ///新しいalphaに対してのfyを求める
+            y[0] = x[0] + alpha * d[0];
+            y[1] = x[1] + alpha * d[1];
+            fy = func(y);
+    
+            if (fy <= fx + xi * (nabla[0] * d[0] + nabla[1] * d[1]) * alpha) //Armijo条件
+            {
+                break;
+            }
+    
+            alpha = tau * alpha; //alphaの更新
+        }
+        return alpha;
+    }
+    
+    //f2の式を用いている
+    double func(double *x)
+    {
+        return A[0][1] * x[1] + A[0][2] * pow(x[1], 2) + A[1][0] * x[0] + A[1][1] * x[0] * x[1] + A[2][0] * pow(x[0], 2) + A[3][0] * pow(x[0], 3) + A[4][0] * pow(x[0], 4);
+    }
+\end{lstlisting}
+
+\begin{lstlisting}[style = lstcpp,caption=4619055\_辰川力駆\_newton\_1.c]
+    //4619055 辰川力駆
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <string.h>
+    #include <math.h>
+    #define inf 10000000000000
+    #define N 500
+    #define res 0.00000001 ///停止条件
+    
+    double func(double *x);                           ///f1の式を用いている
+    void Hf(double *x, double *d);                    ///ヘッセ行列を求める
+    void Newton(double *x, double *d, double *nabla); //dを計算する
+    
+    double Q[2][2];       //Qのデータを保存
+    double c[2];          //cのデータを保存
+    double Hessian[2][2]; ///ヘッセ行列を保存
+    
+    int main()
+    {
+        char fname[128];
+        double x[2];
+        double p, q, r;
+        double d[2], norm;
+        double nabla[2];
+        double f;
+        FILE *fp;
+        int i, j, k;
+    
+        printf("input filename:");
+        fgets(fname, sizeof(fname), stdin);
+        fname[strlen(fname) - 1] = '\0';
+        fflush(stdin);
+        fp = fopen(fname, "r");
+    
+        for (i = 0; i < 2; i++)
+        {
+            for (j = 0; j < 2; j++)
+            {
+                fscanf(fp, "%lf", &Q[i][j]);
+            }
+        }
+        for (i = 0; i < 2; i++)
+        {
+            fscanf(fp, "%lf", &c[i]);
+        }
+        for (i = 0; i < 2; i++)
+        {
+            fscanf(fp, "%lf", &x[i]);
+        }
+        fclose(fp);
+    
+        printf("Q=\n");
+        for (i = 0; i < 2; i++)
+        {
+            for (j = 0; j < 2; j++)
+            {
+                printf("%4.lf", Q[i][j]);
+            }
+            printf("\n");
+        }
+        printf("C=\n");
+        for (i = 0; i < 2; i++)
+        {
+            printf("%4.lf", c[i]);
+        }
+        printf("\n");
+        printf("x=\n");
+        for (i = 0; i < 2; i++)
+        {
+            printf("%4.lf", x[i]);
+        }
+        printf("\n");
+        printf("-----\n");
+    
+        p = Q[0][0];
+        q = Q[0][1];
+        r = Q[1][1];
+        k = 0;
+        while (1)
+        {
+            nabla[0] = p * x[0] + q * x[1] + c[0] + 2 * (x[0] - x[1]) * exp((x[0] - x[1]) * (x[0] - x[1]));
+            nabla[1] = q * x[0] + r * x[1] + c[1] - 2 * (x[0] - x[1]) * exp((x[0] - x[1]) * (x[0] - x[1]));
+    
+            norm = sqrt(nabla[0] * nabla[0] + nabla[1] * nabla[1]); ///ノルムを計算
+    
+            Newton(x, d, nabla); //dを計算
+            f = func(x);
+    
+            if (k <= 5 || (k <= 100 && k % 10 == 0) || k % 100 == 0) //5回目までと10n回目,100n回目(n=1,2,3,...10)を表示
+            {
+                printf("%d回目\n", k);
+                printf("現在位置=(%.8lf,%.8lf)\n目的関数=%.8lf\n勾配ベクトル=(%.8lf,%.8lf)\nノルム=%.8lf\n", x[0], x[1], f, nabla[0], nabla[1], norm);
+                printf("-----\n");
+            }
+            x[0] = x[0] + d[0];
+            x[1] = x[1] + d[1];
+            k++;
+            if (norm < res) ///nablaのノルムが10^{-8}を越えていたら停止
+            {
+                break;
+            }
+            if (k > N) ///反復回数が500回越えたら停止
+            {
+                break;
+            }
+            if (d[0] == inf) ///nabla^2が非正則なら停止
+            {
+                printf("非正則なので終了します\n");
+                break;
+            }
+        }
+        printf("--結果--\n");
+        printf("%d回\n現在位置=(%.8lf,%.8lf)\n目的関数=%.8lf\n勾配ベクトル=(%.8lf,%.8lf)\nノルム=%.8lf\n", k - 1, x[0], x[1], f, nabla[0], nabla[1], norm);
+        return 0;
+    }
+    
+    void Newton(double *x, double *d, double *nabla)
+    {
+        double Hessian_inverse[2][2];
+        Hf(x, d);
+        if (Hessian[0][0] * Hessian[1][1] - Hessian[0][1] * Hessian[1][0] == 0) ///正則かどうか
+        {
+            d[0] = inf;
+            d[1] = inf;
+        }
+        else
+        {
+            Hessian_inverse[0][0] = 1 / (Hessian[0][0] * Hessian[1][1] - Hessian[0][1] * Hessian[1][0]) * Hessian[1][1];
+            Hessian_inverse[0][1] = 1 / (Hessian[0][0] * Hessian[1][1] - Hessian[0][1] * Hessian[1][0]) * -Hessian[0][1];
+            Hessian_inverse[1][0] = 1 / (Hessian[0][0] * Hessian[1][1] - Hessian[0][1] * Hessian[1][0]) * -Hessian[1][0];
+            Hessian_inverse[1][1] = 1 / (Hessian[0][0] * Hessian[1][1] - Hessian[0][1] * Hessian[1][0]) * Hessian[0][0];
+            d[0] = -(Hessian_inverse[0][0] * nabla[0] + Hessian_inverse[1][0] * nabla[1]);
+            d[1] = -(Hessian_inverse[0][1] * nabla[0] + Hessian_inverse[1][1] * nabla[1]);
+        }
+    }
+    
+    void Hf(double *x, double *d)
+    {
+        double p, q, r;
+        p = Q[0][0];
+        q = Q[0][1];
+        r = Q[1][1];
+        Hessian[0][0] = p + 2 * (1 + 2 * pow(x[0] - x[1], 2)) * exp(pow(x[0] - x[1], 2));
+        Hessian[0][1] = q - 2 * (1 + 2 * pow(x[0] - x[1], 2)) * exp(pow(x[0] - x[1], 2));
+        Hessian[1][0] = Hessian[0][1];
+        Hessian[1][1] = r + 2 * (1 + 2 * pow(x[0] - x[1], 2)) * exp(pow(x[0] - x[1], 2));
+    }
+    
+    // f1の式を用いている
+    double func(double *x)
+    {
+        double p, q, r;
+        p = Q[0][0];
+        q = Q[0][1];
+        r = Q[1][1];
+        return 0.5 * (p * x[0] * x[0] + 2 * q * x[0] * x[1] + r * x[1] * x[1]) + c[0] * x[0] + c[1] * x[1] + exp((x[0] - x[1]) * (x[0] - x[1]));
+    }
+\end{lstlisting}
+
+\begin{lstlisting}[style = lstcpp,caption=4619055\_辰川力駆\_newton\_2.c]
+    //4619055 辰川力駆
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <string.h>
+    #include <math.h>
+    #define inf 10000000000000
+    #define N 500
+    #define res 0.00000001 ///停止条件
+    
+    double func(double *x);                           ///f2の式を用いている
+    void Hf(double *x, double *d);                    ///ヘッセ行列を求める
+    void Newton(double *x, double *d, double *nabla); //dを計算する
+    
+    double A[5][3];       //Aのデータを保存
+    double Hessian[2][2]; ///ヘッセ行列を保存
+    
+    int main()
+    {
+        char fname[128];
+        double x[2];
+        double d[2], norm;
+        double nabla[2];
+        double f;
+        FILE *fp;
+        int i, j, k;
+    
+        printf("input filename:");
+        fgets(fname, sizeof(fname), stdin);
+        fname[strlen(fname) - 1] = '\0';
+        fflush(stdin);
+        fp = fopen(fname, "r");
+    
+        for (i = 0; i < 5; i++)
+        {
+            for (j = 0; j < 3; j++)
+            {
+                fscanf(fp, "%lf", &A[i][j]);
+            }
+        }
+        for (i = 0; i < 2; i++)
+        {
+            fscanf(fp, "%lf", &x[i]);
+        }
+        fclose(fp);
+    
+        printf("A=\n");
+        for (i = 0; i < 5; i++)
+        {
+            for (j = 0; j < 3; j++)
+            {
+                printf("%4.lf", A[i][j]);
+            }
+            printf("\n");
+        }
+        printf("x=\n");
+        for (i = 0; i < 2; i++)
+        {
+            printf("%4.lf", x[i]);
+        }
+        printf("\n");
+        printf("-----\n");
+    
+        k = 0;
+        while (1)
+        {
+            nabla[0] = A[1][0] + A[1][1] * x[1] + 2 * A[2][0] * x[0] + 3 * A[3][0] * pow(x[0], 2) + 4 * A[4][0] * pow(x[0], 3);
+            nabla[1] = A[0][1] + 2 * A[0][2] * x[1] + A[1][1] * x[0];
+    
+            norm = sqrt(nabla[0] * nabla[0] + nabla[1] * nabla[1]); ///ノルムを計算
+    
+            Newton(x, d, nabla); //dを計算
+            f = func(x);
+            if (k <= 5 || (k <= 100 && k % 10 == 0) || k % 100 == 0) //5回目までと10n回目,100n回目(n=1,2,3,...10)を表示
+            {
+                printf("%d回目\n", k);
+                printf("現在位置=(%.8lf,%.8lf)\n目的関数=%.8lf\n勾配ベクトル=(%.8lf,%.8lf)\nノルム=%.8lf\n", x[0], x[1], f, nabla[0], nabla[1], norm);
+                printf("-----\n");
+            }
+            x[0] = x[0] + d[0];
+            x[1] = x[1] + d[1];
+            k++;
+            if (norm < res) ///nablaのノルムが10^{-8}を越えていたら停止
+            {
+                break;
+            }
+            if (k > N) ///反復回数が500回越えたら停止
+            {
+                break;
+            }
+            if (d[0] == inf) ///nabla^2が非正則なら停止
+            {
+                printf("非正則なので終了します\n");
+                break;
+            }
+        }
+    
+        printf("--結果--\n");
+        printf("%d回\n現在位置=(%.8lf,%.8lf)\n目的関数=%.8lf\n勾配ベクトル=(%.8lf,%.8lf)\nノルム=%.8lf\n", k - 1, x[0], x[1], f, nabla[0], nabla[1], norm);
+        return 0;
+    }
+    
+    void Newton(double *x, double *d, double *nabla)
+    {
+        double Hessian_inverse[2][2];
+        Hf(x, d);
+        if (Hessian[0][0] * Hessian[1][1] - Hessian[0][1] * Hessian[1][0] == 0) ///正則かどうか
+        {
+            d[0] = inf;
+            d[1] = inf;
+        }
+        else
+        {
+            Hessian_inverse[0][0] = 1 / (Hessian[0][0] * Hessian[1][1] - Hessian[0][1] * Hessian[1][0]) * Hessian[1][1];
+            Hessian_inverse[0][1] = 1 / (Hessian[0][0] * Hessian[1][1] - Hessian[0][1] * Hessian[1][0]) * -Hessian[0][1];
+            Hessian_inverse[1][0] = 1 / (Hessian[0][0] * Hessian[1][1] - Hessian[0][1] * Hessian[1][0]) * -Hessian[1][0];
+            Hessian_inverse[1][1] = 1 / (Hessian[0][0] * Hessian[1][1] - Hessian[0][1] * Hessian[1][0]) * Hessian[0][0];
+            d[0] = -(Hessian_inverse[0][0] * nabla[0] + Hessian_inverse[1][0] * nabla[1]);
+            d[1] = -(Hessian_inverse[0][1] * nabla[0] + Hessian_inverse[1][1] * nabla[1]);
+        }
+    }
+    
+    void Hf(double *x, double *d)
+    {
+        Hessian[0][0] = 2 * A[2][0] + 6 * A[3][0] * x[0] + 12 * A[4][0] * pow(x[0], 2);
+        Hessian[0][1] = A[1][1];
+        Hessian[1][0] = Hessian[0][1];
+        Hessian[1][1] = 2 * A[0][2];
+    }
+    
+    //f2の式を用いている
+    double func(double *x)
+    {
+        return A[0][1] * x[1] + A[0][2] * pow(x[1], 2) + A[1][0] * x[0] + A[1][1] * x[0] * x[1] + A[2][0] * pow(x[0], 2) + A[3][0] * pow(x[0], 3) + A[4][0] * pow(x[0], 4);
+    }
+\end{lstlisting}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}

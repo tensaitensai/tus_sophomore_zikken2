@@ -8,12 +8,12 @@
 #define res 0.00000001 ///停止条件
 
 double func(double *x);                           ///f1の式を用いている
-void Hf(double *x, double *d);                    //ヘッセ行列を求める
+void Hf(double *x, double *d);                    ///ヘッセ行列を求める
 void Newton(double *x, double *d, double *nabla); //dを計算する
 
 double Q[2][2];       //Qのデータを保存
 double c[2];          //cのデータを保存
-double Hessian[2][2]; //ヘッセ行列を保存
+double Hessian[2][2]; ///ヘッセ行列を保存
 
 int main()
 {
