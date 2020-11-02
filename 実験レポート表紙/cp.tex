@@ -37,31 +37,6 @@
 
 
 \subsection{課題1-2}
-\begin{shadebox}
-    \quad この大学にある経営学部学生がいた場合，その性別を推定せよ．
-\end{shadebox}
-\vspace{\baselineskip}
-本質的には課題1-1と同一なので同様の計算式により解を求める．
-式5を応用することで以下の式を導くことができる．
-\begin{eqnarray}
-    (\hat{性別})&=& \mathop{\rm arg~max}\limits_{性別} P(性別 \mid 経営学部生) \nonumber\\
-    &=&\mathop{\rm arg~max}\limits_{性別}\frac{P(性別)}{P(経営学部生)}P(経営学部生 \mid 性別)
-\end{eqnarray}
-また，$P(経営学部生)$は定数として扱うことができるため，式6を応用してこの式は実質的に$P(性別)P(経営学部生 \mid 性別)$として扱うことができ，これを尤度とする．
-結果は以下のようになる．
-\begin{table}[h]
-    \centering
-    \caption{性別に関する確率と尤度}
-    \begin{tabular}{|c|r|r|} \hline
-        性別 & \multicolumn{1}{|c|}{確率} & \multicolumn{1}{|c|}{尤度}       \\
-             & $P(性別 \mid 経営学部生)$  & $P(性別)P(経営学部生 \mid 性別)$ \\
-        \hline\hline
-        男性 & 0.683                      & 0.057                            \\ \hline
-        女性 & 0.317                      & 0.027                            \\ \hline
-    \end{tabular}
-\end{table}
-
-課題1-1において尤度の妥当性は示されているため，表より男性である可能性が高いと言える．
 
 \subsection{課題1-3}
 \begin{shadebox}
@@ -140,8 +115,6 @@ Dの発言またはAの発言によりDは作家でないことが確定する�
 
 \subsection{課題1-5}
 \begin{shadebox}
-    \quad
-    世の中にいる「あすか」という名前の人の男女比が2:8だとする.この大学に「あすか」という人が1名所属していることがわかっているとき，「あすか」さんの学部と性別を上位3つまで推定せよ.
 \end{shadebox}
 \vspace{\baselineskip}
 まず，題の前提を用いることで「あすか」という名前の人の性別が男性及び女性になる確率は以下のようになる
