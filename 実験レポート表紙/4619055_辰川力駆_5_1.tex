@@ -343,7 +343,7 @@ $400-1=399$試合行われる。
 
 また、得点分布は正規分布に従っているので、自分の順位は
 NORM.DIST関数を用いて計算すると$22.75...$となった。
-小数点は切り捨てるので、順位は22位である。
+よって、順位は23位である。
 
 \clearpage
 \subsection{課題1-5}
@@ -353,18 +353,52 @@ NORM.DIST関数を用いて計算すると$22.75...$となった。
     「あゆみ」さんの学部と性別を上位3つまで推定する。
 \end{shadebox}
 
+条件より、
+\begin{eqnarray}
+    P(男子学生|あゆみ)&=&0.1　\nonumber \\
+    P(女子学生|あゆみ)&=&0.9　\nonumber
+\end{eqnarray}
+である。
+
+求めたいものは、
+\begin{eqnarray*}
+    \mathop{\rm arg~max}\limits _{学部}P(学部|性別)P(性別|あゆみ)\\
+\end{eqnarray*}
+であるから、それぞれ計算すると、以下の表のようになる。
+\begin{table}[h]
+    \centering
+    \caption{課題1-5の確率}
+    \begin{tabular}{|l|r|r|} \hline
+        学部         & (性別=男子学生)の確率 & (性別=女子学生)の確率 \\ \hline \hline
+        理学部第一部 & 0.018                 & 0.145                 \\ \hline
+        理学部第二部 & 0.010                 & 0.092                 \\ \hline
+        薬学部       & 0.004                 & 0.130                 \\ \hline
+        工学部       & 0.014                 & 0.099                 \\ \hline
+        工学部第二部 & 0.006                 & 0.035                 \\ \hline
+        理工学部     & 0.034                 & 0.206                 \\ \hline
+        基礎工学部   & 0.008                 & 0.088                 \\ \hline
+        経営学部     & 0.007                 & 0.105                 \\ \hline
+    \end{tabular}
+\end{table}
+
+したがって、求める推定の順位は以下のようになる。
+\begin{itemize}
+    \item[1位]理工学部・女子学生
+    \item[2位]理学部第一部・女子学生
+    \item[3位]薬学部・女子学生
+\end{itemize}
+
+\clearpage
 
 \section{まとめ}
-
+今回の実験では、大学内の男女別、学部別の在籍数の例を基に、
+ベイズの定理と最尤推定の関連性について学んだ。
+最尤推定を行なう時に、ベイズの定理を用いることで式変形をすることができ、
+違う情報を用いて推定することができると学んだ。
 
 \clearpage
 
 % 参考文献
-\begin{thebibliography}{99}
-    \label{sannkoubunnkenn_chapter}
-
-\end{thebibliography}
-
 
 \clearpage
 
