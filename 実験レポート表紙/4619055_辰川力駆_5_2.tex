@@ -202,6 +202,17 @@ Item40を見ると分かるように正答率が高くなるまでに必要な�
     $\theta_j=b_i$での項目反応関数の傾きは$a_i$に比例することを証明する。
 \end{shadebox}
 
+項目反応関数の傾きを知るために、式(1)を微分すると、
+\begin{eqnarray*}
+    \frac{d}{d \theta_j}P(\theta_j)&=& \frac{Da_i\exp\{-Da_i(\theta_j -b_i)\}}{[1+\exp\{-Da_i(\theta_j -b_i)\}]^2}
+\end{eqnarray*}
+この式に$\theta_j=b_i$を代入して、
+\begin{eqnarray*}
+    \frac{d}{d \theta_j}P(\theta_j=b_i)&=& \frac{Da_i\exp(0)}{\{1+\exp(0)\}^2}\\
+    &=&\frac{1}{4}Da_i
+\end{eqnarray*}
+$D$は固定しているので、$a_i$に比例している。
+
 \clearpage
 \subsection{課題2–4}
 \begin{shadebox}
