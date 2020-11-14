@@ -247,6 +247,30 @@ Item21の正答確率と誤答確率は図2のようになった。
     課題2-4で描いた事後分布から能力値を推定する。
     またその時の標準誤差を求める。
 \end{shadebox}
+
+まず、能力値を推定する。
+Item21を正解したので、式(4)より尤度の最大値を考えて
+\begin{eqnarray}
+    \hat{\theta}&=&0.6 \nonumber
+\end{eqnarray}
+である。
+
+次に、標準誤差を求める。
+式(10)より、フィッシャー情報量は
+\begin{eqnarray}
+    I_i(\theta)&=&D^2a_i^2 P_i(\theta)(1-P_i(\theta)) \nonumber\\
+    &=&1.7^2 \times 1.035^2\times 0.624\times (1-0.624) \nonumber\\
+    &\thickapprox& 0.726 \nonumber
+\end{eqnarray}
+であるから、式(11)より標準誤差は
+\begin{eqnarray}
+    {\rm se}(\hat{\theta})&=&I_i(\hat{\theta})^{-\frac{1}{2}} \nonumber\\
+    &=&\frac{1}{\sqrt{I_i(\hat{\theta})}}\nonumber\\
+    &\thickapprox&1.174\nonumber
+\end{eqnarray}
+である。
+
+\clearpage
 \subsection{課題2–6}
 \begin{shadebox}
     ぱあ
