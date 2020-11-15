@@ -273,20 +273,151 @@ Item21を正解したので、式(4)より尤度の最大値を考えて
 \clearpage
 \subsection{課題2–6}
 \begin{shadebox}
-    ぱあ
+    $\theta$の刻み幅を0.1以外に2パターンを自ら適当に変更した場合の
+    能力値と標準誤差の結果を記述し、結果について考察する。
 \end{shadebox}
+
+$\theta$の刻み幅を0.05と0.8にした場合を考えた。
+図4と図5は、$\theta$の刻み幅を0.05にした場合で、
+図6と図7は、$\theta$の刻み幅を0.8にした場合である。
+
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[scale=0.4]{kadai5_2_4.png}
+    \end{center}
+    \caption{Item21の正答確率と誤答確率のグラフ($\theta$の刻み幅0.05)}
+\end{figure}
+
+\clearpage
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[scale=0.3]{kadai5_2_5.png}
+    \end{center}
+    \caption{Item21の正答確率事後分布と誤答確率事後分布のグラフ($\theta$の刻み幅0.05)}
+\end{figure}
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[scale=0.3]{kadai5_2_6.png}
+    \end{center}
+    \caption{Item21の正答確率と誤答確率のグラフ($\theta$の刻み幅0.8)}
+\end{figure}
+
+\clearpage
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[scale=0.3]{kadai5_2_7.png}
+    \end{center}
+    \caption{Item21の正答確率事後分布と誤答確率事後分布のグラフ($\theta$の刻み幅0.8)}
+\end{figure}
+
+\subsubsection*{$\theta$の刻み幅0.05}
+能力値を推定する。
+Item21を正解したので、式(4)より尤度の最大値を考えて
+\begin{eqnarray}
+    \hat{\theta}&=&0.65 \nonumber
+\end{eqnarray}
+である。
+
+次に、標準誤差を求める。
+式(10)より、フィッシャー情報量は
+\begin{eqnarray}
+    I_i(\theta)&=&D^2a_i^2 P_i(\theta)(1-P_i(\theta)) \nonumber\\
+    &=&1.7^2 \times 1.035^2\times 0.645\times (1-0.645) \nonumber\\
+    &\thickapprox& 0.709 \nonumber
+\end{eqnarray}
+であるから、式(11)より標準誤差は
+\begin{eqnarray}
+    {\rm se}(\hat{\theta})&=&I_i(\hat{\theta})^{-\frac{1}{2}} \nonumber\\
+    &=&\frac{1}{\sqrt{I_i(\hat{\theta})}}\nonumber\\
+    &\thickapprox&1.188\nonumber
+\end{eqnarray}
+である。
+
+\clearpage
+\subsubsection*{$\theta$の刻み幅0.8}
+能力値を推定する。
+Item21を正解したので、式(4)より尤度の最大値を考えて
+\begin{eqnarray}
+    \hat{\theta}&=&0.8 \nonumber
+\end{eqnarray}
+である。
+
+次に、標準誤差を求める。
+式(10)より、フィッシャー情報量は
+\begin{eqnarray}
+    I_i(\theta)&=&D^2a_i^2 P_i(\theta)(1-P_i(\theta)) \nonumber\\
+    &=&1.7^2 \times 1.035^2\times 0.703\times (1-0.703) \nonumber\\
+    &\thickapprox& 0.647 \nonumber
+\end{eqnarray}
+であるから、式(11)より標準誤差は
+\begin{eqnarray}
+    {\rm se}(\hat{\theta})&=&I_i(\hat{\theta})^{-\frac{1}{2}} \nonumber\\
+    &=&\frac{1}{\sqrt{I_i(\hat{\theta})}}\nonumber\\
+    &\thickapprox&1.243\nonumber
+\end{eqnarray}
+である。
+
+$\theta$の刻み幅0.05および$\theta$の刻み幅0.8の
+能力値と標準誤差は課題2-5で求めた値と違っていた。
+これは、能力値を求める際に、使用できる$\theta$が違うからである。
+
+$\theta$の刻み幅を小さくすれば、さらに使える能力値が多くなるので、
+正確に推定するならば刻み幅を小さくすればよいと考える。
+
+\clearpage
 \subsection{課題2–7}
 \begin{shadebox}
-    ぱあ
+    能力値の事前分布が平均-0.3、分散1の正規分布に従うと仮定された場合、
+    自分の能力値と情報量について計算し、結果について考察する。
 \end{shadebox}
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[scale=0.3]{kadai5_2_8.png}
+    \end{center}
+    \caption{Item21の正答確率事後分布と誤答確率事後分布のグラフ(能力値は平均-0.3,分散1の正規分布に従う)}
+\end{figure}
+
+能力値の事前分布が平均-0.3、分散1の正規分布に従うと仮定された場合、
+正答確率と誤答確率のグラフは変わらないので図2と同じになる。
+事前分布が変わると影響されるのは正答確率事後分布と誤答確率事後分布である。
+そのグラフを図8に表した。
+
+能力値を推定する。
+Item21を正解したので、式(4)より尤度の最大値を考えて
+\begin{eqnarray}
+    \hat{\theta}&=&0.5 \nonumber
+\end{eqnarray}
+である。
+
+次に、標準誤差を求める。
+式(10)より、フィッシャー情報量は
+\begin{eqnarray}
+    I_i(\theta)&=&D^2a_i^2 P_i(\theta)(1-P_i(\theta)) \nonumber\\
+    &=&1.7^2 \times 1.035^2\times 0.582\times (1-0.582) \nonumber\\
+    &\thickapprox& 0.753 \nonumber
+\end{eqnarray}
+であるから、式(11)より標準誤差は
+\begin{eqnarray}
+    {\rm se}(\hat{\theta})&=&I_i(\hat{\theta})^{-\frac{1}{2}} \nonumber\\
+    &=&\frac{1}{\sqrt{I_i(\hat{\theta})}}\nonumber\\
+    &\thickapprox&1.152\nonumber
+\end{eqnarray}
+である。
+
+図3と図8のグラフを比べると分かるが、
+全体的に少しだけ左の値が大きくなっている。
+今回は誤答確率事後分布が-0.3付近で山なりになっているので、
+その部分が大きくなっている。
+それらによって、能力値やフィッシャー情報量、
+標準誤差が変わっている。
+
 
 \section{まとめ}
+項目反応理論を用いた場合の受験者の能力値の推定について実験を行った。
+また、課題を通して刻み幅を変更した場合の能力値の推定や、
+標準正規分布ではなく違った正規分布に従う場合の推定も行った。
+これらを通して項目反応理論を理解することができた。
 
-
-% 参考文献
-\begin{thebibliography}{99}
-    \label{sannkoubunnkenn_chapter}
-\end{thebibliography}
 
 \clearpage
 % 付録
