@@ -160,20 +160,26 @@ Item3,9,21,24,30,35,40,51を解き全て正答したので、
 \end{shadebox}
 
 図3の対数尤度関数で最大値を取っている$\theta$の値は、
-$\theta=$の時に関数は最大値をとることから自分の能力値は1.3であると推定できる．今回の情報量は各itemに関する情報量の総和であるため以下の式を用いれば良い．
+$\theta=1.7$である。
+よって自分の能力値は1.7であると推定できる。
+また、情報量$I(\hat{\theta})$は各問題に関する情報量$I_i({\theta})$の
+合計である。
+したがって、8問の合計を求めたら良く、
 \begin{eqnarray*}
-    I(\hat{\theta})&=&\sum_{i=1}^{10}{I_i({\theta})}\\
-    &=&\sum_{i=1}^{10}{D^2a_i^2P_i(\theta)(1-P_i(\theta))}\\
-    &=&\sum_{i=1}^{10}{1.7^2a_i^2P_i(1.3)(1-P_i(1.3))}\\
-    &=&0.933706345\cdots\simeq 0.93371
+    I(\hat{\theta})&=&\sum_{i=1}^{8}{I_i({\theta})}\\
+    &=&\sum_{i=1}^{8}{D^2a_i^2P_i(\theta)(1-P_i(\theta))}\\
+    &=&\sum_{i=1}^{8}{1.7^2a_i^2P_i(1.7)(1-P_i(1.7))}\\
+    &\thickapprox & 1.65559
 \end{eqnarray*}
-また，標準誤差は
+である。
+\clearpage
+また、標準誤差は
 \begin{eqnarray*}
     se(\hat{\theta})&=&I(\hat{\theta})^{-\frac{1}{2}}\\
-    &=&\frac{1}{\sqrt{0.93371}}\\
-    &=&1.03489156\cdots\simeq 1.03489
+    &= &\frac{1}{\sqrt{ 1.65559}}\\
+    &\thickapprox& 0.77718
 \end{eqnarray*}
-
+である。
 
 \subsection{課題3-4}
 \begin{shadebox}
