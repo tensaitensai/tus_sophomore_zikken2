@@ -187,6 +187,40 @@ $\theta=1.7$である。
     標準誤差を求め、結果について考察する。
 \end{shadebox}
 
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[scale=0.3]{kadai5_3_4.png}
+    \end{center}
+    \caption{全ての項目による対数尤度グラフ($a_i=1$のとき)}
+\end{figure}
+
+$a_i$が全て「1」だった場合の対数尤度グラフは図4のようになる。
+図4の対数尤度関数で最大値を取っている$\theta$の値は、
+$\theta=2.1$である。
+
+よって、情報量は課題3-3と同様にして求めればよいから、
+\begin{eqnarray*}
+    I(\hat{\theta})&=&\sum_{i=1}^{8}{I_i({\theta})}\\
+    &=&\sum_{i=1}^{8}{D^2a_i^2P_i(\theta)(1-P_i(\theta))}\\
+    &=&\sum_{i=1}^{8}{1.7^2 1^2P_i(2.1)(1-P_i(2.1))}\\
+    &\thickapprox & 2.22578
+\end{eqnarray*}
+である。
+
+また、標準誤差は
+\begin{eqnarray*}
+    se(\hat{\theta})&=&I(\hat{\theta})^{-\frac{1}{2}}\\
+    &= &\frac{1}{\sqrt{2.22578}}\\
+    &\thickapprox& 0.67028
+\end{eqnarray*}
+である。
+
+図4のグラフからわかるように図3とあまり概形に変化はない。
+これは困難度パラメタ($b_i$)を変えていないからである。
+
+情報量に関しては識別力パラメタ($a_i$)を2乗するので
+$a_i=1$にすることで増加している。
+だから、分母が大きくなるので標準誤差は小さくなっている。
 
 \subsection{課題3–5}
 \begin{shadebox}
