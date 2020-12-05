@@ -13,6 +13,26 @@
 \usepackage{bm}
 \usepackage{listings,jlisting}
 
+\lstdefinestyle{lstcpp}{
+    language={c++},
+    backgroundcolor={\color[gray]{.85}},
+    basicstyle={\small},
+    identifierstyle={\small},
+    commentstyle={\small\ttfamily \color[rgb]{0,0.5,0}},
+    keywordstyle={\small\bfseries \color[rgb]{1,0,0}},
+    ndkeywordstyle={\small},
+    stringstyle={\small\ttfamily \color[rgb]{0,0,1}},
+    frame={tb},
+    breaklines=true,
+    columns=[l]{fullflexible},
+    numbers=left,
+    xrightmargin=0zw,
+    xleftmargin=3zw,
+    numberstyle={\scriptsize},
+    stepnumber=1,
+    numbersep=1zw,
+    morecomment=[l]{//}
+}
 \begin{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 表紙を出力する場合は，\提出者と\共同実験者をいれる
@@ -37,6 +57,19 @@ rand() によって発生させた乱数と、MT によって発生させた乱�
 ディジタル通信システムと誤り訂正符号の理解を深める。
 
 \section{実験手順}
+\begin{itemize}
+    \item 系列長$K=4$の情報系列
+          $w=(w_1,...,w_K) \in \{0,1\}$ を乱数によって
+          発生させ、
+          BSCの各$\epsilon$に対するビット誤り率の値をシミュレーション
+          により求める。
+          乱数の発生には、C 言語コンパイラ上で rand() 関数を用いたものと
+          Mersenne Twister (MT) を用いた 2 種類のプログラムを作成する。
+    \item 横軸を BSC の誤り確率 $\epsilon$、縦軸 (指数表示) を
+          ビット誤り率 $P_e$ としてグラフにプロットする。
+    \item 誤り確率の理論値 ($\epsilon$) を実線 (プロットなし) で表示してシミュレー
+          ションで得られた値と比較する。
+\end{itemize}
 
 \section{実験結果}
 \section{検討}
@@ -69,12 +102,7 @@ $\theta=1.7$である。
 また、情報量$I(\hat{\theta})$は各問題に関する情報量$I_i({\theta})$の
 合計である。
 したがって、8問の合計を求めたら良く、
-\begin{eqnarray*}
-    I(\hat{\theta})&=&\sum_{i=1}^{8}{I_i({\theta})}\\
-    &=&\sum_{i=1}^{8}{D^2a_i^2P_i(\theta)(1-P_i(\theta))}\\
-    &=&\sum_{i=1}^{8}{1.7^2a_i^2P_i(1.7)(1-P_i(1.7))}\\
-    &\thickapprox & 1.65559
-\end{eqnarray*}
+
 である。
 
 また、標準誤差は
@@ -93,42 +121,6 @@ $\theta=1.7$である。
 
 
 
-$a_i$が全て「1」だった場合の対数尤度グラフは図4のようになる。
-図4の対数尤度関数で最大値を取っている$\theta$の値は、
-$\theta=2.1$である。
-
-よって、情報量は課題3-3と同様にして求めればよいから、
-\begin{eqnarray*}
-    I(\hat{\theta})&=&\sum_{i=1}^{8}{I_i({\theta})}\\
-    &=&\sum_{i=1}^{8}{D^2a_i^2P_i(\theta)(1-P_i(\theta))}\\
-    &=&\sum_{i=1}^{8}{1.7^2 1^2P_i(2.1)(1-P_i(2.1))}\\
-    &\thickapprox & 2.22578
-\end{eqnarray*}
-である。
-
-また、標準誤差は
-\begin{eqnarray*}
-    se(\hat{\theta})&=&I(\hat{\theta})^{-\frac{1}{2}}\\
-    &= &\frac{1}{\sqrt{2.22578}}\\
-    &\thickapprox& 0.67028
-\end{eqnarray*}
-である。
-
-図4のグラフからわかるように図3とあまり概形に変化はない。
-これは困難度パラメタ($b_i$)を変えていないからである。
-
-情報量に関しては識別力パラメタ($a_i$)を2乗するので
-$a_i=1$にすることで増加している。
-だから、分母が大きくなるので標準誤差は小さくなっている。
-
-\clearpage
-
-\subsection{課題3–5}
-\begin{shadebox}
-    解いた項目と、能力値$\theta$の推定結果と、
-    課題1-4で行なった偏差値$S$の結果を同じグループ内で共有し、
-    比べた結果を考察する。
-\end{shadebox}
 
 \begin{table}[htb]
     \begin{center}
@@ -154,17 +146,141 @@ $a_i=1$にすることで増加している。
     \end{center}
 \end{table}
 
-グループ9のメンバーの結果を表1にまとめた。
-解いた問題数を比べると、自分が一番多かった。また、能力値も一番高かった。
-偏差値が70のとき100点なので自分(4619055)以外に4619064と4619094が満点だが、
-能力値が違っている。これは問題のパラメタの違いも関係しているが、
-解いた問題数が多いと能力値が上がる傾向があると考えられる。
-
 
 
 \clearpage
 % 付録
 \appendix
 \section{付録}
+\begin{lstlisting}[style = lstcpp,caption=kadai3\_rand.cpp]
+    //4619055 辰川力駆
+    #include <random> // 乱数生成
+    #include <stdio.h>
+    #include <iostream>
+    #include <iomanip>
+    
+    using namespace std;
+    
+    #define SIM 1000000
+    
+    #define real_rand (double)rand() / RAND_MAX; //RAND_MAXで割ることで0から1を返すようにしている。
+    #define seed 55                              //学籍番号下２桁
+    #define K 4                                  //系列長
+    
+    int main()
+    {
+        srand(seed);
+        int w[4], e[4], y[4];
+    
+        cout << "# SIM:" << SIM << endl;
+        cout << "# ep   # BER" << endl;
+    
+        double ep = 0;
+        int count = 0;
+        for (int i = 0; i < 12; i++) //12回で設定
+        {
+            count = 0;
+            ep = 0.0001 * (i + 1);
+    
+            for (int s = 0; s < SIM; s++)
+            {
+                for (int j = 0; j < K; j++)
+                {
+                    double rd = real_rand; //乱数発生
+                    w[j] = rd * 2;         //2倍することで0.5より大きいか小さいかを判定できる。
+                }
+                for (int j = 0; j < K; j++)
+                {
+                    double rd = real_rand; //乱数発生
+                    if (rd <= ep)
+                    {
+                        e[j] = 1;
+                    }
+                    else
+                    {
+                        e[j] = 0;
+                    }
+                }
+                for (int j = 0; j < K; j++)
+                {
+                    y[j] = w[j] ^ e[j];
+                    count += w[j] ^ y[j];
+                }
+            }
+            cout << fixed << setprecision(4) << ep;
+            cout.unsetf(ios::fixed);
+            cout << fixed << setprecision(7) << " " << (double)count / (K * SIM) << endl;
+        }
+    
+        return 0;
+    }
+\end{lstlisting}
+
+\begin{lstlisting}[style = lstcpp,caption=kadai3\_mt.cpp]
+    //4619055 辰川力駆
+    #include <random> // 乱数生成
+    #include <stdio.h>
+    #include <iostream>
+    #include <iomanip>
+    
+    using namespace std;
+    
+    #define SIM 1000000
+    
+    #define seed 55 //学籍番号下２桁
+    #define K 4     //系列長
+    
+    mt19937 mt(seed); //メルセンヌ・ツイスタ
+    
+    int main()
+    {
+        srand(seed);
+        int w[4], e[4], y[4];
+    
+        uniform_real_distribution<double> rand_real(0, 1);
+        normal_distribution<double> rand_n(0, 0.3);
+    
+        cout << "# SIM:" << SIM << endl;
+        cout << "# ep   # BER" << endl;
+    
+        double ep = 0;
+        int count = 0;
+        for (int i = 0; i < 12; i++) //12回で設定
+        {
+            count = 0;
+            ep = 0.0001 * (i + 1);
+    
+            for (int s = 0; s < SIM; s++)
+            {
+                for (int j = 0; j < K; j++)
+                {
+                    w[j] = rand_real(mt) * 2; //2倍することで0.5より大きいか小さいかを判定できる。
+                }
+                for (int j = 0; j < K; j++)
+                {
+                    if (rand_real(mt) <= ep)
+                    {
+                        e[j] = 1;
+                    }
+                    else
+                    {
+                        e[j] = 0;
+                    }
+                }
+                for (int j = 0; j < K; j++)
+                {
+                    y[j] = w[j] ^ e[j];
+                    count += w[j] ^ y[j];
+                }
+            }
+            cout << fixed << setprecision(4) << ep;
+            cout.unsetf(ios::fixed);
+            cout << fixed << setprecision(7) << " " << (double)count / (K * SIM) << endl;
+        }
+    
+        return 0;
+    }
+\end{lstlisting}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
