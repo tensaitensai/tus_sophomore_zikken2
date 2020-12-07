@@ -4,6 +4,7 @@
         "cmath": "cpp",
         "complex": "c",
         "ostream": "cpp",
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "iostream": "cpp"
     }
 }
