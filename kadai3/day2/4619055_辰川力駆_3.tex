@@ -93,6 +93,32 @@
 \begin{shadebox}
     なぜ(7,4)ハミング符号は1個誤りを訂正できるか。
 \end{shadebox}
+ハミング符号の生成多項式は$g(x)=x^3+x+1$であるから、
+今回の冗長は3ビットなので、
+情報系列$\boldsymbol{w}=(x_1,x_2,x_3,x_4)$としたとき、
+冗長$\boldsymbol{c}=(c_1,c_2,c_3)$は次のようになる。
+\begin{eqnarray}
+    c_1&=&x_1 \oplus x_2 \oplus x_3 \nonumber\\
+    c_2&=&x_2 \oplus x_3 \oplus x_4 \nonumber\\
+    c_3&=&x_1 \oplus x_2 \oplus x_4 \nonumber
+\end{eqnarray}
+よって、情報系列$\boldsymbol{w}=(x_1,x_2,x_3,x_4)$に対して、
+冗長$\boldsymbol{c}=(c_1,c_2,c_3)$は1対1対応に決まる。
+
+したがって、
+\begin{eqnarray*}
+    H = \left[
+        \begin{array}{rrrrrrr}
+            1 & 1 & 1 & 0 & 1 & 0 & 0 \\
+            0 & 1 & 1 & 1 & 0 & 1 & 0 \\
+            1 & 1 & 0 & 1 & 0 & 0 & 1
+        \end{array}
+        \right]
+\end{eqnarray*}
+の転置を右から書けた値もただ一つに決まるので、
+シンドローム$\boldsymbol{s}=(s_1,s_2,s_3)$は、ただ一つに決まる。
+
+したがって、誤り箇所が分かるので1個の誤りを訂正できる。
 
 \subsection{課題2}
 \begin{shadebox}
