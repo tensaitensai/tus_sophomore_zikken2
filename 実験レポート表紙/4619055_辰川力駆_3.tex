@@ -67,6 +67,45 @@
 
 \section{原理}
 
+\subsection{誤り訂正符号}
+
+情報を伝えるとき、できるだけ正確に伝えるための仕組みである。
+送信メッセージに $N − K$ ビットの冗長性をもたせることで、
+通信路で発生した誤りを訂正することが可能である。
+
+\begin{itemize}
+    \item 符号化 (Encode)
+
+          送信者は $K$ ビットの送りたい情報 $\boldsymbol{w}$ をルールに従って
+          $N$ ビットの符号語 $\boldsymbol{x}$ に変換する。
+    \item 復号 (Decode)
+
+          受信者は $\boldsymbol{x}$ がわからず、
+          ノイズ付きの情報 $\boldsymbol{y}$ のみを知っている。
+          $\boldsymbol{y}$ から $\hat{\boldsymbol{x}}$ および $\hat{\boldsymbol{w}}$ を推定する。
+\end{itemize}
+
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[scale=0.5]{kadai3_3_2.png}
+    \end{center}
+    \caption{通信路モデル}
+\end{figure}
+
+\clearpage
+
+\subsection{ハミング符号}
+
+ハミング符号はブロック符号の一種である。
+デジタル情報をブロック ($K$ ビット) に分け、
+それぞれに対して符号化を行う (N ビットになる)。
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[scale=0.5]{kadai3_3_1.png}
+    \end{center}
+    \caption{ブロック符号化}
+\end{figure}
+
 \section{実験手順}
 \begin{enumerate}
     \item $K=4$ビットの情報 $\boldsymbol{w}$ を乱数を用いて生成
@@ -78,17 +117,14 @@
     \item 1から6をSIM回行い、ビット/ブロック誤り率を計算
 \end{enumerate}
 
+\clearpage
+
 \section{実験結果}
 
 ソースコードは付録に記述した。
 そのソースコードを実行した結果を下記に示す。
 
-\begin{figure}[h]
-    \begin{center}
-        %\includegraphics[scale=0.8]{kadai3_2_1.png}
-    \end{center}
-    \caption{プログラムの実行結果}
-\end{figure}
+
 \clearpage
 
 \section{検討}
