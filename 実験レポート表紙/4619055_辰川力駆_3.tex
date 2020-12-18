@@ -59,14 +59,18 @@
  (7,4)ハミング符号による符号化、復号を行うプログラムを作成して、
 ハミング符号の特徴を理解する。
 
+\section{目的}
+\section{原理}
+
 \section{実験手順}
 \begin{enumerate}
-    \item 4ビットの情報 $\boldsymbol{w}$ を生成
-    \item 生成多項式 $g(x)$ を用いて符号化
-    \item 1ビットの雑音を付与する
-    \item 受信語 $\boldsymbol{y}$ と検査行列 $H$ からシンドローム $\boldsymbol{s}$ を計算
-    \item シンドロームから誤り位置を推定する
-    \item 推定語 $\hat{\boldsymbol{x}}$ を求め、もとの $\boldsymbol{x}$ と値を比較する
+    \item $K=4$ビットの情報 $\boldsymbol{w}$ を乱数を用いて生成
+    \item 符号化により、$\boldsymbol{w}$ から $\boldsymbol{x}$ を生成
+    \item 乱数を用いて$N=7$ビットの雑音ベクトル $\boldsymbol{e}$ を生成
+    \item $\boldsymbol{y}=\boldsymbol{x}\oplus \boldsymbol{e}$ を計算
+    \item $\boldsymbol{y}$ から復号して$\hat{\boldsymbol{x}}$、$\hat{\boldsymbol{w}}$ を得る
+    \item $\boldsymbol{w}$と$\hat{\boldsymbol{w}}$を比較し、ビット誤り数をカウント
+    \item 1から6をSIM回行い、ビット/ブロック誤り率を計算
 \end{enumerate}
 
 \section{実験結果}
