@@ -124,53 +124,50 @@
 ソースコードは付録に記述した。
 そのソースコードを実行した結果を下記に示す。
 
+なお、誤り率を$\epsilon=0.005,0.009,0.013,0.017,0.021$、
+シミュレーション回数を$\rm{SIM}=1000000$に設定した。
+
+また、これらの結果をグラフにプロットした。
+
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[scale=0.5]{kadai3_3_3.png}
+    \end{center}
+    \caption{ソースコードの実行結果}
+\end{figure}
+
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[scale=0.25]{kadai3_3_4.png}
+    \end{center}
+    \caption{ビット誤り率のグラフ}
+\end{figure}
 
 \clearpage
+
+\begin{figure}[h]
+    \begin{center}
+        \includegraphics[scale=0.25]{kadai3_3_5.png}
+    \end{center}
+    \caption{ブロック誤り率のグラフ}
+\end{figure}
 
 \section{検討}
 \subsection{課題1}
 \begin{shadebox}
-    なぜ(7,4)ハミング符号は1個誤りを訂正できるか。
+    $\epsilon$を非常に小さくした場合 ($10^{-4}$ 程度)、
+    誤り率を正しく測定するためにはどの程度のシミュレーション回数が必要か。
 \end{shadebox}
-ハミング符号の生成多項式は$g(x)=x^3+x+1$であるから、
-今回の冗長は3ビットなので、
-情報系列$\boldsymbol{w}=(x_1,x_2,x_3,x_4)$としたとき、
-冗長$\boldsymbol{c}=(c_1,c_2,c_3)$は次のようになる。
-\begin{eqnarray}
-    c_1&=&x_1 \oplus x_2 \oplus x_3 \nonumber\\
-    c_2&=&x_2 \oplus x_3 \oplus x_4 \nonumber\\
-    c_3&=&x_1 \oplus x_2 \oplus x_4 \nonumber
-\end{eqnarray}
-よって、情報系列$\boldsymbol{w}=(x_1,x_2,x_3,x_4)$に対して、
-冗長$\boldsymbol{c}=(c_1,c_2,c_3)$は1対1対応に決まる。
-
-したがって、
-\begin{eqnarray*}
-    H = \left[
-        \begin{array}{rrrrrrr}
-            1 & 1 & 1 & 0 & 1 & 0 & 0 \\
-            0 & 1 & 1 & 1 & 0 & 1 & 0 \\
-            1 & 1 & 0 & 1 & 0 & 0 & 1
-        \end{array}
-        \right]
-\end{eqnarray*}
-の転置を右から書けた値もただ一つに決まるので、
-シンドローム$\boldsymbol{s}=(s_1,s_2,s_3)$は、ただ一つに決まる。
-
-したがって、誤り箇所が分かるので1個の誤りを訂正できる。
 
 \subsection{課題2}
 \begin{shadebox}
-    $2,3,...$個の誤りが発生するとどうなるか。
+
 \end{shadebox}
 
-$\boldsymbol{s}=\boldsymbol{y} H^T$において、
-この計算式でシンドロームを計算するが、
-$\boldsymbol{y}$が誤りを2つや3つ発生していても、
-シンドローム$\boldsymbol{s}$は3ビットしか得られない。
-つまり、$2^3=8$通りより、
-誤りがないもしくは$1\sim 7$ビット目が誤っているとしか判定できない。
-したがって、1個より大きい誤りが発生した場合は訂正はできない。
+\subsection{課題3}
+\begin{shadebox}
+
+\end{shadebox}
 
 \clearpage
 % 付録
